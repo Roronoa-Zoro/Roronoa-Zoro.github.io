@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "resteasyµ÷ÓÃÁ÷³Ì"
+title:  "resteasyè°ƒç”¨æµç¨‹"
 date:   2016-11-01 +0800
 categories: RPC
 tags: rpc
@@ -10,13 +10,13 @@ author: Jimmy Lee
 * content
 {:toc}
 
-### Ç°ÑÔ
-ÓÃresteasyµ÷ÓÃÆäËûÏµÍ³µÄ·şÎñ,ÅäÖÃµÄhttp pool,ÎªÁË¼ìÑéÒ»ÏÂºÎÊ±ÊÍ·ÅµÄÁ´½Ó,debugÁËÒ»ÏÂ,¶Ôµ÷ÓÃÁ´Â·×ö¸ö±Ê¼Ç</br>
+### å‰è¨€
+ç”¨resteasyè°ƒç”¨å…¶ä»–ç³»ç»Ÿçš„æœåŠ¡,é…ç½®çš„http pool,ä¸ºäº†æ£€éªŒä¸€ä¸‹ä½•æ—¶é‡Šæ”¾çš„é“¾æ¥,debugäº†ä¸€ä¸‹,å¯¹è°ƒç”¨é“¾è·¯åšä¸ªç¬”è®°</br>
 resteasy version:3.0.19.Final
 
 
-### µ÷ÓÃÁ´Â·
-* Ö´ĞĞÇ°</br>
+### è°ƒç”¨é“¾è·¯
+* æ‰§è¡Œå‰</br>
 ClientProxy </br>
 -> ClientInvoker </br>
 -> ClientRequest </br>
@@ -25,12 +25,12 @@ ClientProxy </br>
 -> CloseableHttpClient </br>
 -> InternalHttpClient.doExecute </br>
 </br>
-* È»ºóreturn
+* ç„¶åreturn
 </br>
-* Ö±µ½·µ»Øµ½ClientInvoker -> BodyEntityExtractor
+* ç›´åˆ°è¿”å›åˆ°ClientInvoker -> BodyEntityExtractor
 
 
-### ½âÊÍËµÃ÷
-1.ÔÚApacheHttpClient4Executor, ´´½¨ÁËÊÍ·ÅÁ´½ÓºÍ´ÓstreamÖĞ»ñÈ¡¶ÔÏóµÄÀà </br>
-2.BodyEntityExtractor, ÕâÀï¼ì²âhttp statusÊÇ·ñÒì³££¬Òì³£ÔòÅ×Òì³£,ÇÒ·µ»ØÒì³£µÄ¶ÔÏóµÄÊ±ºò£¬×öÁËÒ»¸öcopy streamµÄ¶¯×÷£¬</br>
-ÕâÑù±£Ö¤ÊÍ·ÅÁËµ±Ç°µÄÁ´½Ó, ÓÖ±£ÁôÁËÔ­Ê¼µÄÊı¾İÁ÷, ÕâÑùÈç¹û¿Í»§¶ËÏëÒª½øĞĞ×Ô¶¨ÒåµÄÒ»Ğ©²Ù×÷£¬ÒÀÈ»¿ÉÒÔ¶Áµ½Êı¾İ
+### è§£é‡Šè¯´æ˜
+1.åœ¨ApacheHttpClient4Executor, åˆ›å»ºäº†é‡Šæ”¾é“¾æ¥å’Œä»streamä¸­è·å–å¯¹è±¡çš„ç±» </br>
+2.BodyEntityExtractor, è¿™é‡Œæ£€æµ‹http statusæ˜¯å¦å¼‚å¸¸ï¼Œå¼‚å¸¸åˆ™æŠ›å¼‚å¸¸,ä¸”è¿”å›å¼‚å¸¸çš„å¯¹è±¡çš„æ—¶å€™ï¼Œåšäº†ä¸€ä¸ªcopy streamçš„åŠ¨ä½œï¼Œ</br>
+è¿™æ ·ä¿è¯é‡Šæ”¾äº†å½“å‰çš„é“¾æ¥, åˆä¿ç•™äº†åŸå§‹çš„æ•°æ®æµ, è¿™æ ·å¦‚æœå®¢æˆ·ç«¯æƒ³è¦è¿›è¡Œè‡ªå®šä¹‰çš„ä¸€äº›æ“ä½œï¼Œä¾ç„¶å¯ä»¥è¯»åˆ°æ•°æ®

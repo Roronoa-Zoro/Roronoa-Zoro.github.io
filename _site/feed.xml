@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Jimmy Lee Notes</title>
+    <description></description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Thu, 10 Nov 2016 13:17:16 +0800</pubDate>
+    <lastBuildDate>Thu, 10 Nov 2016 13:17:16 +0800</lastBuildDate>
+    <generator>Jekyll v3.3.0</generator>
+    
+      <item>
+        <title>resteasy调用流程</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;前言&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-1&quot; id=&quot;markdown-toc-section-1&quot;&gt;调用链路&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-2&quot; id=&quot;markdown-toc-section-2&quot;&gt;解释说明&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;section&quot;&gt;前言&lt;/h3&gt;
+&lt;p&gt;用resteasy调用其他系统的服务,配置的http pool,为了检验一下何时释放的链接,debug了一下,对调用链路做个笔记&amp;lt;/br&amp;gt;
+resteasy version:3.0.19.Final&lt;/p&gt;
+
+&lt;h3 id=&quot;section-1&quot;&gt;调用链路&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;执行前&amp;lt;/br&amp;gt;
+ClientProxy &amp;lt;/br&amp;gt;
+-&amp;gt; ClientInvoker &amp;lt;/br&amp;gt;
+-&amp;gt; ClientRequest &amp;lt;/br&amp;gt;
+-&amp;gt; ClientExecutionContextImpl &amp;lt;/br&amp;gt;
+-&amp;gt; ApacheHttpClient4Executor &amp;lt;/br&amp;gt;
+-&amp;gt; CloseableHttpClient &amp;lt;/br&amp;gt;
+-&amp;gt; InternalHttpClient.doExecute &amp;lt;/br&amp;gt;
+&amp;lt;/br&amp;gt;&lt;/li&gt;
+  &lt;li&gt;然后return
+&amp;lt;/br&amp;gt;&lt;/li&gt;
+  &lt;li&gt;直到返回到ClientInvoker -&amp;gt; BodyEntityExtractor&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;section-2&quot;&gt;解释说明&lt;/h3&gt;
+&lt;p&gt;1.在ApacheHttpClient4Executor, 创建了释放链接和从stream中获取对象的类 &amp;lt;/br&amp;gt;
+2.BodyEntityExtractor, 这里检测http status是否异常，异常则抛异常,且返回异常的对象的时候，做了一个copy stream的动作，&amp;lt;/br&amp;gt;
+这样保证释放了当前的链接, 又保留了原始的数据流, 这样如果客户端想要进行自定义的一些操作，依然可以读到数据&lt;/p&gt;
+</description>
+        <pubDate>Tue, 01 Nov 2016 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2016/11/01/resteasy-flow/</link>
+        <guid isPermaLink="true">http://localhost:4000/2016/11/01/resteasy-flow/</guid>
+        
+        <category>rpc</category>
+        
+        
+        <category>RPC</category>
+        
+      </item>
+    
+      <item>
+        <title>Hello world！</title>
+        <description>
+&lt;p&gt;First private blog, take a note.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 26 Oct 2016 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2016/10/26/illegal-access/</link>
+        <guid isPermaLink="true">http://localhost:4000/2016/10/26/illegal-access/</guid>
+        
+        <category>默认分类</category>
+        
+        
+        <category>默认分类</category>
+        
+      </item>
+    
+  </channel>
+</rss>
