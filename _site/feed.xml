@@ -5,9 +5,148 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 10 Nov 2016 13:17:16 +0800</pubDate>
-    <lastBuildDate>Thu, 10 Nov 2016 13:17:16 +0800</lastBuildDate>
+    <pubDate>Fri, 18 Nov 2016 17:37:32 +0800</pubDate>
+    <lastBuildDate>Fri, 18 Nov 2016 17:37:32 +0800</lastBuildDate>
     <generator>Jekyll v3.3.0</generator>
+    
+      <item>
+        <title>JPA join查询使用</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;前言&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#repository&quot; id=&quot;markdown-toc-repository&quot;&gt;步骤一, 定义自定义的repository&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#repository-1&quot; id=&quot;markdown-toc-repository-1&quot;&gt;步骤二, 实现上面的repository&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-1&quot; id=&quot;markdown-toc-section-1&quot;&gt;如何使用&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#section-2&quot; id=&quot;markdown-toc-section-2&quot;&gt;问题&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;section&quot;&gt;前言&lt;/h3&gt;
+&lt;p&gt;使用spring jpa作为orm工具，有一个单向一对多关系，进行查询的问题，不加额外处理会有n+1问题&lt;br /&gt;
+spring jpa version:1.10.1&lt;br /&gt;
+底层hibernate: 5.1.0&lt;/p&gt;
+
+&lt;h3 id=&quot;repository&quot;&gt;步骤一, 定义自定义的repository&lt;/h3&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@NoRepositoryBean
+public interface CustomRepository&amp;lt;T, ID extends Serializable&amp;gt; extends JpaRepository&amp;lt;T, ID&amp;gt;, JpaSpecificationExecutor&amp;lt;T&amp;gt; {
+
+    Page&amp;lt;T&amp;gt; findAll(Specification&amp;lt;T&amp;gt; spec, Pageable pageable, EntityGraph.EntityGraphType entityGraphType, String entityGraphName);
+
+    Page&amp;lt;T&amp;gt; findAll(Specification&amp;lt;T&amp;gt; spec, Pageable pageable, String entityGraphName);
+}  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;主要是使用EntityGraph&lt;/p&gt;
+
+&lt;h3 id=&quot;repository-1&quot;&gt;步骤二, 实现上面的repository&lt;/h3&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;public class CustomRepositoryImpl&amp;lt;T, ID extends Serializable&amp;gt; extends SimpleJpaRepository&amp;lt;T, ID&amp;gt; implements CustomRepository&amp;lt;T, ID&amp;gt; {
+
+    private EntityManager em;
+
+    public CustomRepositoryImpl(JpaEntityInformation entityInformation,
+                            EntityManager entityManager) {
+        super(entityInformation, entityManager);
+
+        this.em = entityManager;
+    }
+
+    @Override
+    public Page&amp;lt;T&amp;gt; findAll(Specification&amp;lt;T&amp;gt; spec, Pageable pageable, EntityGraph.EntityGraphType entityGraphType, String entityGraphName) {
+        TypedQuery&amp;lt;T&amp;gt; query = getQuery(spec, pageable.getSort());
+        query.setHint(entityGraphType.getKey(), em.getEntityGraph(entityGraphName));
+        return readPage(query, pageable, spec);
+    }
+
+    @Override
+    public Page&amp;lt;T&amp;gt; findAll(Specification&amp;lt;T&amp;gt; spec, Pageable pageable, String entityGraphName) {
+        return findAll(spec, pageable, EntityGraph.EntityGraphType.FETCH, entityGraphName);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;上面的实现类和其他正常的repository放在不同的package&lt;br /&gt;
+配置上面的实现类&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;jpa:repositories base-package=&quot;xxx.yyy.repository&quot;
+					  base-class=&quot;xxx.zzz.CustomRepositoryImpl&quot;
+					  transaction-manager-ref=&quot;transactionManager&quot;
+					  entity-manager-factory-ref=&quot;entityManagerFactory&quot; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;entity的代码,添加EntityGraph&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@Table(name = &quot;XX_YY&quot;)
+@NamedEntityGraphs({
+        @NamedEntityGraph(
+                name = &quot;xxyyWithZZ&quot;,
+                attributeNodes = {
+						//跟下面的属性同名
+                        @NamedAttributeNode(&quot;imgList&quot;)
+                }
+        )
+})
+public class XXYYEntity implements Serializable {
+    private static final long serialVersionUID = -3476018376851461504L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = &quot;id&quot;)
+    private long id;
+
+    @Column(name = &quot;name&quot;, length = 45)
+    private String name;
+
+    @Column(name = &quot;desc&quot;, length = 45)
+    private String desc;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = &quot;zz_id&quot;)
+    @Where(clause = &quot;is_valid=1&quot;) //这个条件是加在XXYYZZ表的where条件里面的
+    private List&amp;lt;XXYYZZ&amp;gt; imgList;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;XXYY表的id和XXYYZZ的zz_id进行join关联&lt;/p&gt;
+
+&lt;h3 id=&quot;section-1&quot;&gt;如何使用&lt;/h3&gt;
+&lt;p&gt;定义一个repository，继续最开始的自定义repository接口，然后在service里面组装好Specification，Pageable，并指定entigyGraph名称
+进行调用&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Page&amp;lt;XXYYEntity&amp;gt; content = xxyyRepository.findAll(spec, pageable, &quot;xxyyWithZZ&quot;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;section-2&quot;&gt;问题&lt;/h3&gt;
+&lt;p&gt;1.若一个entity包括多个一对多关系，则需要把list换成set，否则报错，或者显示指定@IndexColumn
+2.不使用上面的方式，直接定义一个repository,然后使用@EntityGraph注解&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;XXYYRepository extends JpaRepository&amp;lt;XXYYEntity, Long&amp;gt;,
+        JpaSpecificationExecutor&amp;lt;XXYYEntity&amp;gt; {
+	
+	@EntityGraph(&quot;xxyyWithZZ&quot;)
+	List&amp;lt;XXYYEntity&amp;gt; getByIsValid(int valid);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;假设xxyy有4条记录，前两条记录分别有2条XXYYZZ，则上述查询会返回6条记录,如下&lt;br /&gt;
+1-{2条xxyyzz}&lt;br /&gt;
+1-{2条xxyyzz}&lt;br /&gt;
+2-{2条xxyyzz}&lt;br /&gt;
+2-{2条xxyyzz}&lt;br /&gt;
+3-&lt;br /&gt;
+4-&lt;br /&gt;
+后期可以看看为什么这么返回以及如何处理&lt;/p&gt;
+
+&lt;p&gt;参考&lt;br /&gt;
+http://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.at-query&lt;br /&gt;
+http://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.single-repository-behaviour&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 18 Nov 2016 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2016/11/18/jpa-join/</link>
+        <guid isPermaLink="true">http://localhost:4000/2016/11/18/jpa-join/</guid>
+        
+        <category>jpa</category>
+        
+        
+        <category>ORM</category>
+        
+      </item>
     
       <item>
         <title>resteasy调用流程</title>
@@ -18,28 +157,28 @@
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;section&quot;&gt;前言&lt;/h3&gt;
-&lt;p&gt;用resteasy调用其他系统的服务,配置的http pool,为了检验一下何时释放的链接,debug了一下,对调用链路做个笔记&amp;lt;/br&amp;gt;
+&lt;p&gt;用resteasy调用其他系统的服务,配置的http pool,为了检验一下何时释放的链接,debug了一下,对调用链路做个笔记&lt;br /&gt;
 resteasy version:3.0.19.Final&lt;/p&gt;
 
 &lt;h3 id=&quot;section-1&quot;&gt;调用链路&lt;/h3&gt;
 &lt;ul&gt;
-  &lt;li&gt;执行前&amp;lt;/br&amp;gt;
-ClientProxy &amp;lt;/br&amp;gt;
--&amp;gt; ClientInvoker &amp;lt;/br&amp;gt;
--&amp;gt; ClientRequest &amp;lt;/br&amp;gt;
--&amp;gt; ClientExecutionContextImpl &amp;lt;/br&amp;gt;
--&amp;gt; ApacheHttpClient4Executor &amp;lt;/br&amp;gt;
--&amp;gt; CloseableHttpClient &amp;lt;/br&amp;gt;
--&amp;gt; InternalHttpClient.doExecute &amp;lt;/br&amp;gt;
-&amp;lt;/br&amp;gt;&lt;/li&gt;
-  &lt;li&gt;然后return
-&amp;lt;/br&amp;gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;执行前&lt;br /&gt;
+ClientProxy&lt;br /&gt;
+-&amp;gt; ClientInvoker&lt;br /&gt;
+-&amp;gt; ClientRequest&lt;br /&gt;
+-&amp;gt; ClientExecutionContextImpl&lt;br /&gt;
+-&amp;gt; ApacheHttpClient4Executor&lt;br /&gt;
+-&amp;gt; CloseableHttpClient&lt;br /&gt;
+-&amp;gt; InternalHttpClient.doExecute&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;然后return&lt;/li&gt;
   &lt;li&gt;直到返回到ClientInvoker -&amp;gt; BodyEntityExtractor&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;section-2&quot;&gt;解释说明&lt;/h3&gt;
-&lt;p&gt;1.在ApacheHttpClient4Executor, 创建了释放链接和从stream中获取对象的类 &amp;lt;/br&amp;gt;
-2.BodyEntityExtractor, 这里检测http status是否异常，异常则抛异常,且返回异常的对象的时候，做了一个copy stream的动作，&amp;lt;/br&amp;gt;
+&lt;p&gt;1.在ApacheHttpClient4Executor, 创建了释放链接和从stream中获取对象的类&lt;br /&gt;
+2.BodyEntityExtractor, 这里检测http status是否异常，异常则抛异常,且返回异常的对象的时候，做了一个copy stream的动作,
 这样保证释放了当前的链接, 又保留了原始的数据流, 这样如果客户端想要进行自定义的一些操作，依然可以读到数据&lt;/p&gt;
 </description>
         <pubDate>Tue, 01 Nov 2016 00:00:00 +0800</pubDate>

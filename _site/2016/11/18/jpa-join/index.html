@@ -6,14 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>resteasy调用流程</title>
-    <meta name="description" content="  前言  调用链路  解释说明前言用resteasy调用其他系统的服务,配置的http pool,为了检验一下何时释放的链接,debug了一下,对调用链路做个笔记resteasy version:3.0.19.Final调用链路      执行前ClientProxy-&gt; ClientInvoker-&g...">
+    <title>JPA join查询使用</title>
+    <meta name="description" content="  前言  步骤一, 定义自定义的repository  步骤二, 实现上面的repository  如何使用  问题前言使用spring jpa作为orm工具，有一个单向一对多关系，进行查询的问题，不加额外处理会有n+1问题spring jpa version:1.10.1底层hibernate: 5.1.0步...">
 
     <link rel="shortcut icon" href="/favicon.ico?" type="image/x-icon">
     <link rel="icon" href="/favicon.ico?" type="image/x-icon">
     <link rel="stylesheet" href=" /css/fontawesome/css/font-awesome.min.css ">
     <link rel="stylesheet" href=" /css/main.css ">
-    <link rel="canonical" href="http://localhost:4000/2016/11/01/resteasy-flow/">
+    <link rel="canonical" href="http://localhost:4000/2016/11/18/jpa-join/">
     <link rel="alternate" type="application/rss+xml" title="Jimmy Lee Notes" href="http://localhost:4000 /feed.xml ">
 
 
@@ -128,11 +128,11 @@
 
         <div class="page clearfix" post>
     <div class="left">
-        <h1>resteasy调用流程</h1>
+        <h1>JPA join查询使用</h1>
         <div class="label">
 
             <div class="label-card">
-                <i class="fa fa-calendar"></i>2016-11-01
+                <i class="fa fa-calendar"></i>2016-11-18
             </div>
 
             <div class="label-card">
@@ -153,7 +153,7 @@
   <i class="fa fa-th-list"></i>
   
     
-        <a href="/category/#RPC" title="Category: RPC" rel="category">RPC</a>
+        <a href="/category/#ORM" title="Category: ORM" rel="category">ORM</a>
     
   
 
@@ -170,8 +170,8 @@
   <i class="fa fa-tags"></i>
   
     
-        <!--a href="/tag/#rpc" title="Tag: rpc" rel="tag">rpc</a-->
-        <a href="/tag/#rpc" title="Tag: rpc" rel="tag">rpc</a>
+        <!--a href="/tag/#jpa" title="Tag: jpa" rel="tag">jpa</a-->
+        <a href="/tag/#jpa" title="Tag: jpa" rel="tag">jpa</a>
     
   
 
@@ -184,34 +184,129 @@
         <article itemscope itemtype="http://schema.org/BlogPosting">
         <ul id="markdown-toc">
   <li><a href="#section" id="markdown-toc-section">前言</a></li>
-  <li><a href="#section-1" id="markdown-toc-section-1">调用链路</a></li>
-  <li><a href="#section-2" id="markdown-toc-section-2">解释说明</a></li>
+  <li><a href="#repository" id="markdown-toc-repository">步骤一, 定义自定义的repository</a></li>
+  <li><a href="#repository-1" id="markdown-toc-repository-1">步骤二, 实现上面的repository</a></li>
+  <li><a href="#section-1" id="markdown-toc-section-1">如何使用</a></li>
+  <li><a href="#section-2" id="markdown-toc-section-2">问题</a></li>
 </ul>
 
 <h3 id="section">前言</h3>
-<p>用resteasy调用其他系统的服务,配置的http pool,为了检验一下何时释放的链接,debug了一下,对调用链路做个笔记<br />
-resteasy version:3.0.19.Final</p>
+<p>使用spring jpa作为orm工具，有一个单向一对多关系，进行查询的问题，不加额外处理会有n+1问题<br />
+spring jpa version:1.10.1<br />
+底层hibernate: 5.1.0</p>
 
-<h3 id="section-1">调用链路</h3>
-<ul>
-  <li>
-    <p>执行前<br />
-ClientProxy<br />
--&gt; ClientInvoker<br />
--&gt; ClientRequest<br />
--&gt; ClientExecutionContextImpl<br />
--&gt; ApacheHttpClient4Executor<br />
--&gt; CloseableHttpClient<br />
--&gt; InternalHttpClient.doExecute</p>
-  </li>
-  <li>然后return</li>
-  <li>直到返回到ClientInvoker -&gt; BodyEntityExtractor</li>
-</ul>
+<h3 id="repository">步骤一, 定义自定义的repository</h3>
+<div class="highlighter-rouge"><pre class="highlight"><code>@NoRepositoryBean
+public interface CustomRepository&lt;T, ID extends Serializable&gt; extends JpaRepository&lt;T, ID&gt;, JpaSpecificationExecutor&lt;T&gt; {
 
-<h3 id="section-2">解释说明</h3>
-<p>1.在ApacheHttpClient4Executor, 创建了释放链接和从stream中获取对象的类<br />
-2.BodyEntityExtractor, 这里检测http status是否异常，异常则抛异常,且返回异常的对象的时候，做了一个copy stream的动作,
-这样保证释放了当前的链接, 又保留了原始的数据流, 这样如果客户端想要进行自定义的一些操作，依然可以读到数据</p>
+    Page&lt;T&gt; findAll(Specification&lt;T&gt; spec, Pageable pageable, EntityGraph.EntityGraphType entityGraphType, String entityGraphName);
+
+    Page&lt;T&gt; findAll(Specification&lt;T&gt; spec, Pageable pageable, String entityGraphName);
+}  
+</code></pre>
+</div>
+
+<p>主要是使用EntityGraph</p>
+
+<h3 id="repository-1">步骤二, 实现上面的repository</h3>
+<div class="highlighter-rouge"><pre class="highlight"><code>public class CustomRepositoryImpl&lt;T, ID extends Serializable&gt; extends SimpleJpaRepository&lt;T, ID&gt; implements CustomRepository&lt;T, ID&gt; {
+
+    private EntityManager em;
+
+    public CustomRepositoryImpl(JpaEntityInformation entityInformation,
+                            EntityManager entityManager) {
+        super(entityInformation, entityManager);
+
+        this.em = entityManager;
+    }
+
+    @Override
+    public Page&lt;T&gt; findAll(Specification&lt;T&gt; spec, Pageable pageable, EntityGraph.EntityGraphType entityGraphType, String entityGraphName) {
+        TypedQuery&lt;T&gt; query = getQuery(spec, pageable.getSort());
+        query.setHint(entityGraphType.getKey(), em.getEntityGraph(entityGraphName));
+        return readPage(query, pageable, spec);
+    }
+
+    @Override
+    public Page&lt;T&gt; findAll(Specification&lt;T&gt; spec, Pageable pageable, String entityGraphName) {
+        return findAll(spec, pageable, EntityGraph.EntityGraphType.FETCH, entityGraphName);
+    }
+}
+</code></pre>
+</div>
+<p>上面的实现类和其他正常的repository放在不同的package<br />
+配置上面的实现类</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;jpa:repositories base-package="xxx.yyy.repository"
+					  base-class="xxx.zzz.CustomRepositoryImpl"
+					  transaction-manager-ref="transactionManager"
+					  entity-manager-factory-ref="entityManagerFactory" /&gt;
+</code></pre>
+</div>
+<p>entity的代码,添加EntityGraph</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>@Table(name = "XX_YY")
+@NamedEntityGraphs({
+        @NamedEntityGraph(
+                name = "xxyyWithZZ",
+                attributeNodes = {
+						//跟下面的属性同名
+                        @NamedAttributeNode("imgList")
+                }
+        )
+})
+public class XXYYEntity implements Serializable {
+    private static final long serialVersionUID = -3476018376851461504L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private long id;
+
+    @Column(name = "name", length = 45)
+    private String name;
+
+    @Column(name = "desc", length = 45)
+    private String desc;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "zz_id")
+    @Where(clause = "is_valid=1") //这个条件是加在XXYYZZ表的where条件里面的
+    private List&lt;XXYYZZ&gt; imgList;
+}
+</code></pre>
+</div>
+<p>XXYY表的id和XXYYZZ的zz_id进行join关联</p>
+
+<h3 id="section-1">如何使用</h3>
+<p>定义一个repository，继续最开始的自定义repository接口，然后在service里面组装好Specification，Pageable，并指定entigyGraph名称
+进行调用</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>Page&lt;XXYYEntity&gt; content = xxyyRepository.findAll(spec, pageable, "xxyyWithZZ");
+</code></pre>
+</div>
+
+<h3 id="section-2">问题</h3>
+<p>1.若一个entity包括多个一对多关系，则需要把list换成set，否则报错，或者显示指定@IndexColumn
+2.不使用上面的方式，直接定义一个repository,然后使用@EntityGraph注解</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>XXYYRepository extends JpaRepository&lt;XXYYEntity, Long&gt;,
+        JpaSpecificationExecutor&lt;XXYYEntity&gt; {
+	
+	@EntityGraph("xxyyWithZZ")
+	List&lt;XXYYEntity&gt; getByIsValid(int valid);
+}
+</code></pre>
+</div>
+<p>假设xxyy有4条记录，前两条记录分别有2条XXYYZZ，则上述查询会返回6条记录,如下<br />
+1-{2条xxyyzz}<br />
+1-{2条xxyyzz}<br />
+2-{2条xxyyzz}<br />
+2-{2条xxyyzz}<br />
+3-<br />
+4-<br />
+后期可以看看为什么这么返回以及如何处理</p>
+
+<p>参考<br />
+http://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.at-query<br />
+http://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.single-repository-behaviour</p>
+
 
         </article>
         <hr>
@@ -236,10 +331,8 @@ ClientProxy<br />
         <hr>
         <div class="post-recent">
           
-            <p>上一篇 <a href="/2016/10/26/illegal-access/">Hello world！</a></p>
+            <p>上一篇 <a href="/2016/11/01/resteasy-flow/">resteasy调用流程</a></p>
           
-          
-            <p>下一篇 <a href="/2016/11/18/jpa-join/">JPA join查询使用</a></p>
           
         </div>
         <hr>
@@ -256,8 +349,8 @@ ClientProxy<br />
      */
 
     var disqus_config = function() {
-        this.page.url = 'http://localhost:4000/2016/11/01/resteasy-flow/'; // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = 'http://localhost:4000/2016/11/01/resteasy-flow/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.page.url = 'http://localhost:4000/2016/11/18/jpa-join/'; // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://localhost:4000/2016/11/18/jpa-join/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
 
     (function() { // DON'T EDIT BELOW THIS LINE
