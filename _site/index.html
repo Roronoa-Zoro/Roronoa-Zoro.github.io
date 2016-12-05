@@ -205,23 +205,23 @@ spring jpa version:1.10.1<br />
 <h3 id="section-3">执行过程</h3>
 <p>1.一路debug,进入到DefaultMergeEventListener,onMerge(line:64) -&gt; createEntityCopyObserver(line:77) -&gt; onMerge(line:105) 
 2.在line:144,获取EntityEntry,后续判断,发现对象已经处于游离状态</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>switch ( entityState ) { 
-	case DETACHED: 
-		entityIsDetached( event, copyCache ); 
-		break; 
-	case TRANSIENT: 
-		entityIsTransient( event, copyCache ); 
-		break; 
-	case PERSISTENT: 
-		entityIsPersistent( event, copyCache ); 
-		break; 
-	default: //DELETED  
-		throw new ObjectDeletedException( 
-			"deleted instance passed to merge", 
-			null, 
-			getLoggableName( event.getEntityName(), entity ) 
-		); 
-} 
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="k">switch</span> <span class="o">(</span> <span class="n">entityState</span> <span class="o">)</span> <span class="o">{</span> 
+	<span class="k">case</span> <span class="nl">DETACHED:</span> 
+		<span class="n">entityIsDetached</span><span class="o">(</span> <span class="n">event</span><span class="o">,</span> <span class="n">copyCache</span> <span class="o">);</span> 
+		<span class="k">break</span><span class="o">;</span> 
+	<span class="k">case</span> <span class="nl">TRANSIENT:</span> 
+		<span class="n">entityIsTransient</span><span class="o">(</span> <span class="n">event</span><span class="o">,</span> <span class="n">copyCache</span> <span class="o">);</span> 
+		<span class="k">break</span><span class="o">;</span> 
+	<span class="k">case</span> <span class="nl">PERSISTENT:</span> 
+		<span class="n">entityIsPersistent</span><span class="o">(</span> <span class="n">event</span><span class="o">,</span> <span class="n">copyCache</span> <span class="o">);</span> 
+		<span class="k">break</span><span class="o">;</span> 
+	<span class="k">default</span><span class="o">:</span> <span class="c1">//DELETED  </span>
+		<span class="k">throw</span> <span class="k">new</span> <span class="nf">ObjectDeletedException</span><span class="o">(</span> 
+			<span class="s">"deleted instance passed to merge"</span><span class="o">,</span> 
+			<span class="kc">null</span><span class="o">,</span> 
+			<span class="n">getLoggableName</span><span class="o">(</span> <span class="n">event</span><span class="o">.</span><span class="na">getEntityName</span><span class="o">(),</span> <span class="n">entity</span> <span class="o">)</span> 
+		<span class="o">);</span> 
+<span class="o">}</span> 
 </code></pre>
 </div>
 <p>然后进入到entityIsDetached方法 
@@ -229,13 +229,13 @@ spring jpa version:1.10.1<br />
 到下面的line:326,如下,target是从数据库刚读出来的对象,entity是我们想要进行update的对象,在copyValues的时候,虽然我们只
 更新了执行时间,但是这时候2个对象的status值也是不同的,所以target的status被赋予了entity的status值,而这个值是错误的,
 所以打印的update sql里面包含了set status=X 的语句</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>// cascade first, so that all unsaved objects get their 
-// copy created before we actually copy 
-cascadeOnMerge( source, persister, entity, copyCache ); 
-copyValues( persister, entity, target, source, copyCache ); 
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// cascade first, so that all unsaved objects get their </span>
+<span class="c1">// copy created before we actually copy </span>
+<span class="n">cascadeOnMerge</span><span class="o">(</span> <span class="n">source</span><span class="o">,</span> <span class="n">persister</span><span class="o">,</span> <span class="n">entity</span><span class="o">,</span> <span class="n">copyCache</span> <span class="o">);</span> 
+<span class="n">copyValues</span><span class="o">(</span> <span class="n">persister</span><span class="o">,</span> <span class="n">entity</span><span class="o">,</span> <span class="n">target</span><span class="o">,</span> <span class="n">source</span><span class="o">,</span> <span class="n">copyCache</span> <span class="o">);</span> 
  
-//copyValues works by reflection, so explicitly mark the entity instance dirty 
-markInterceptorDirty( entity, target, persister ); 
+<span class="c1">//copyValues works by reflection, so explicitly mark the entity instance dirty </span>
+<span class="n">markInterceptorDirty</span><span class="o">(</span> <span class="n">entity</span><span class="o">,</span> <span class="n">target</span><span class="o">,</span> <span class="n">persister</span> <span class="o">);</span> 
 </code></pre>
 </div>
 
