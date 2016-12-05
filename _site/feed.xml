@@ -5,8 +5,8 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 05 Dec 2016 14:07:24 +0800</pubDate>
-    <lastBuildDate>Mon, 05 Dec 2016 14:07:24 +0800</lastBuildDate>
+    <pubDate>Mon, 05 Dec 2016 14:14:04 +0800</pubDate>
+    <lastBuildDate>Mon, 05 Dec 2016 14:14:04 +0800</lastBuildDate>
     <generator>Jekyll v3.3.0</generator>
     
       <item>
@@ -32,24 +32,24 @@ spring jpa version:1.10.1&lt;br /&gt;
 
 &lt;h3 id=&quot;section-3&quot;&gt;执行过程&lt;/h3&gt;
 &lt;p&gt;1.一路debug,进入到DefaultMergeEventListener,onMerge(line:64) -&amp;gt; createEntityCopyObserver(line:77) -&amp;gt; onMerge(line:105) 
-2.在line:144,获取EntityEntry,后续判断,发现对象已经处于 游离 状态&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;switch ( entityState ) {
-	case DETACHED:
-		entityIsDetached( event, copyCache );
-		break;
-	case TRANSIENT:
-		entityIsTransient( event, copyCache );
-		break;
-	case PERSISTENT:
-		entityIsPersistent( event, copyCache );
-		break;
-	default: //DELETED
-		throw new ObjectDeletedException(
-			&quot;deleted instance passed to merge&quot;,
-			null,
-			getLoggableName( event.getEntityName(), entity )
-		);
-}
+2.在line:144,获取EntityEntry,后续判断,发现对象已经处于游离状态&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;switch ( entityState ) { 
+	case DETACHED: 
+		entityIsDetached( event, copyCache ); 
+		break; 
+	case TRANSIENT: 
+		entityIsTransient( event, copyCache ); 
+		break; 
+	case PERSISTENT: 
+		entityIsPersistent( event, copyCache ); 
+		break; 
+	default: //DELETED  
+		throw new ObjectDeletedException( 
+			&quot;deleted instance passed to merge&quot;, 
+			null, 
+			getLoggableName( event.getEntityName(), entity ) 
+		); 
+} 
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;p&gt;然后进入到entityIsDetached方法 
@@ -57,15 +57,16 @@ spring jpa version:1.10.1&lt;br /&gt;
 到下面的line:326,如下,target是从数据库刚读出来的对象,entity是我们想要进行update的对象,在copyValues的时候,虽然我们只
 更新了执行时间,但是这时候2个对象的status值也是不同的,所以target的status被赋予了entity的status值,而这个值是错误的,
 所以打印的update sql里面包含了set status=X 的语句&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;// cascade first, so that all unsaved objects get their
-// copy created before we actually copy
-cascadeOnMerge( source, persister, entity, copyCache );
-copyValues( persister, entity, target, source, copyCache );
-
-//copyValues works by reflection, so explicitly mark the entity instance dirty
-markInterceptorDirty( entity, target, persister );
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;// cascade first, so that all unsaved objects get their 
+// copy created before we actually copy 
+cascadeOnMerge( source, persister, entity, copyCache ); 
+copyValues( persister, entity, target, source, copyCache ); 
+ 
+//copyValues works by reflection, so explicitly mark the entity instance dirty 
+markInterceptorDirty( entity, target, persister ); 
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+
 &lt;h3 id=&quot;section-4&quot;&gt;总结&lt;/h3&gt;
 &lt;p&gt;对spring jpa中对象的状态变化不够了解啊,数据查出来后,事务提交,则该对象就变成游离状态了 
 &lt;img src=&quot;images/spring-jpa-obj-status.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
