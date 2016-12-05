@@ -134,6 +134,123 @@
             
               <li>
                 <h2>
+                  <a class="post-link" href="/2016/12/05/jpa%E6%9B%B4%E6%96%B0/">JPA 更新entity</a>
+                </h2>
+                <div class="label">
+                    <div class="label-card">
+                        <i class="fa fa-calendar"></i>2016-12-05
+                    </div>
+                    <div class="label-card">
+                        <i class="fa fa-user"></i>Jimmy Lee
+                        
+                    </div>
+                    <div class="label-card">
+                        
+                    </div>
+
+                    <div class="label-card">
+                    
+
+
+<!-- <span class="point">•</span> -->
+<span class="categories">
+  <i class="fa fa-th-list"></i>
+  
+    
+        <a href="/category/#ORM" title="Category: ORM" rel="category">ORM</a>
+    
+  
+
+  <!-- <span class="point">•</span> -->
+</span>
+
+
+                    </div>
+
+                    <div class="label-card">
+                    
+<!-- <span class="point">•</span> -->
+<span class="pageTag">
+  <i class="fa fa-tags"></i>
+  
+    
+        <a href="/tag/#jpa" title="Tag: jpa" rel="tag">jpa</a>
+    
+  
+
+</span>
+
+                    </div>
+                </div>
+                <div class="excerpt">
+                    <ul id="markdown-toc">
+  <li><a href="#section" id="markdown-toc-section">前言</a></li>
+  <li><a href="#section-1" id="markdown-toc-section-1">场景</a></li>
+  <li><a href="#section-2" id="markdown-toc-section-2">遇到的问题</a></li>
+  <li><a href="#section-3" id="markdown-toc-section-3">执行过程</a></li>
+  <li><a href="#section-4" id="markdown-toc-section-4">总结</a></li>
+</ul>
+
+<h3 id="section">前言</h3>
+<p>算是对spring jpa对象状态的进一步理解吧<br />
+spring jpa version:1.10.1<br />
+底层hibernate: 5.1.0</p>
+
+<h3 id="section-1">场景</h3>
+<p>从数据库查询出一些任务数据,分发,更改任务状态,执行任务,然后更新任务下次执行时间</p>
+
+<h3 id="section-2">遇到的问题</h3>
+<p>save的时候除了下次执行时间,status字段也被更新了,由于在entity上面使用的dynamic update注解,所以debug看看具体怎么发生的</p>
+
+<h3 id="section-3">执行过程</h3>
+<p>1.一路debug,进入到DefaultMergeEventListener,onMerge(line:64) -&gt; createEntityCopyObserver(line:77) -&gt; onMerge(line:105) 
+2.在line:144,获取EntityEntry,后续判断,发现对象已经处于 游离 状态</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>switch ( entityState ) {
+	case DETACHED:
+		entityIsDetached( event, copyCache );
+		break;
+	case TRANSIENT:
+		entityIsTransient( event, copyCache );
+		break;
+	case PERSISTENT:
+		entityIsPersistent( event, copyCache );
+		break;
+	default: //DELETED
+		throw new ObjectDeletedException(
+			"deleted instance passed to merge",
+			null,
+			getLoggableName( event.getEntityName(), entity )
+		);
+}
+</code></pre>
+</div>
+<p>然后进入到entityIsDetached方法 
+3.在这个方法里面(依然在DefaultMergeEventListener),line:289,从数据库读了一次,从log也可以看到进行了一次数据库读操作,
+到下面的line:326,如下,target是从数据库刚读出来的对象,entity是我们想要进行update的对象,在copyValues的时候,虽然我们只
+更新了执行时间,但是这时候2个对象的status值也是不同的,所以target的status被赋予了entity的status值,而这个值是错误的,
+所以打印的update sql里面包含了set status=X 的语句</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>// cascade first, so that all unsaved objects get their
+// copy created before we actually copy
+cascadeOnMerge( source, persister, entity, copyCache );
+copyValues( persister, entity, target, source, copyCache );
+
+//copyValues works by reflection, so explicitly mark the entity instance dirty
+markInterceptorDirty( entity, target, persister );
+</code></pre>
+</div>
+<h3 id="section-4">总结</h3>
+<p>对spring jpa中对象的状态变化不够了解啊,数据查出来后,事务提交,则该对象就变成游离状态了 
+<img src="images/spring-jpa-obj-status.png" alt="" /></p>
+
+                </div>
+                <div class="read-all">
+                    <a  href="/2016/12/05/jpa%E6%9B%B4%E6%96%B0/"><i class="fa fa-newspaper-o"></i>Read All</a>
+                </div>
+                <hr>
+              </li>
+            
+              <li>
+                <h2>
                   <a class="post-link" href="/2016/11/18/jpa-join/">JPA join查询使用</a>
                 </h2>
                 <div class="label">
@@ -493,6 +610,8 @@ ClientProxy<br />
                 </div>
                 <ul class="content-ul" recent>
                     
+                        <li><a href="/2016/12/05/jpa%E6%9B%B4%E6%96%B0/">JPA 更新entity</a></li>
+                    
                         <li><a href="/2016/11/18/jpa-join/">JPA join查询使用</a></li>
                     
                         <li><a href="/2016/11/01/resteasy-flow/">resteasy调用流程</a></li>
@@ -533,7 +652,7 @@ ClientProxy<br />
                             <span class="name">
                                 ORM
                             </span>
-                            <span class="badge">1</span>
+                            <span class="badge">2</span>
                         </a>
                     </li>
                     
@@ -573,7 +692,7 @@ ClientProxy<br />
                       
                       
                       
-                      <a href="/tag/#jpa" style="font-size: 9pt; color: #999;">jpa</a>
+                      <a href="/tag/#jpa" style="font-size: 18pt; color: #000;">jpa</a>
                     
                 </div>
             </div>
