@@ -315,82 +315,82 @@ spring jpa version:1.10.1<br />
 底层hibernate: 5.1.0</p>
 
 <h3 id="repository">步骤一, 定义自定义的repository</h3>
-<div class="highlighter-rouge"><pre class="highlight"><code>@NoRepositoryBean
-public interface CustomRepository&lt;T, ID extends Serializable&gt; extends JpaRepository&lt;T, ID&gt;, JpaSpecificationExecutor&lt;T&gt; {
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@NoRepositoryBean</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">CustomRepository</span><span class="o">&lt;</span><span class="n">T</span><span class="o">,</span> <span class="n">ID</span> <span class="kd">extends</span> <span class="n">Serializable</span><span class="o">&gt;</span> <span class="kd">extends</span> <span class="n">JpaRepository</span><span class="o">&lt;</span><span class="n">T</span><span class="o">,</span> <span class="n">ID</span><span class="o">&gt;,</span> <span class="n">JpaSpecificationExecutor</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
 
-    Page&lt;T&gt; findAll(Specification&lt;T&gt; spec, Pageable pageable, EntityGraph.EntityGraphType entityGraphType, String entityGraphName);
+    <span class="n">Page</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="o">(</span><span class="n">Specification</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">spec</span><span class="o">,</span> <span class="n">Pageable</span> <span class="n">pageable</span><span class="o">,</span> <span class="n">EntityGraph</span><span class="o">.</span><span class="na">EntityGraphType</span> <span class="n">entityGraphType</span><span class="o">,</span> <span class="n">String</span> <span class="n">entityGraphName</span><span class="o">);</span>
 
-    Page&lt;T&gt; findAll(Specification&lt;T&gt; spec, Pageable pageable, String entityGraphName);
-}  
+    <span class="n">Page</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="o">(</span><span class="n">Specification</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">spec</span><span class="o">,</span> <span class="n">Pageable</span> <span class="n">pageable</span><span class="o">,</span> <span class="n">String</span> <span class="n">entityGraphName</span><span class="o">);</span>
+<span class="o">}</span>  
 </code></pre>
 </div>
 
 <p>主要是使用EntityGraph</p>
 
 <h3 id="repository-1">步骤二, 实现上面的repository</h3>
-<div class="highlighter-rouge"><pre class="highlight"><code>public class CustomRepositoryImpl&lt;T, ID extends Serializable&gt; extends SimpleJpaRepository&lt;T, ID&gt; implements CustomRepository&lt;T, ID&gt; {
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomRepositoryImpl</span><span class="o">&lt;</span><span class="n">T</span><span class="o">,</span> <span class="n">ID</span> <span class="kd">extends</span> <span class="n">Serializable</span><span class="o">&gt;</span> <span class="kd">extends</span> <span class="n">SimpleJpaRepository</span><span class="o">&lt;</span><span class="n">T</span><span class="o">,</span> <span class="n">ID</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="n">CustomRepository</span><span class="o">&lt;</span><span class="n">T</span><span class="o">,</span> <span class="n">ID</span><span class="o">&gt;</span> <span class="o">{</span>
 
-    private EntityManager em;
+    <span class="kd">private</span> <span class="n">EntityManager</span> <span class="n">em</span><span class="o">;</span>
 
-    public CustomRepositoryImpl(JpaEntityInformation entityInformation,
-                            EntityManager entityManager) {
-        super(entityInformation, entityManager);
+    <span class="kd">public</span> <span class="nf">CustomRepositoryImpl</span><span class="o">(</span><span class="n">JpaEntityInformation</span> <span class="n">entityInformation</span><span class="o">,</span>
+                            <span class="n">EntityManager</span> <span class="n">entityManager</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">entityInformation</span><span class="o">,</span> <span class="n">entityManager</span><span class="o">);</span>
 
-        this.em = entityManager;
-    }
+        <span class="k">this</span><span class="o">.</span><span class="na">em</span> <span class="o">=</span> <span class="n">entityManager</span><span class="o">;</span>
+    <span class="o">}</span>
 
-    @Override
-    public Page&lt;T&gt; findAll(Specification&lt;T&gt; spec, Pageable pageable, EntityGraph.EntityGraphType entityGraphType, String entityGraphName) {
-        TypedQuery&lt;T&gt; query = getQuery(spec, pageable.getSort());
-        query.setHint(entityGraphType.getKey(), em.getEntityGraph(entityGraphName));
-        return readPage(query, pageable, spec);
-    }
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Page</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="o">(</span><span class="n">Specification</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">spec</span><span class="o">,</span> <span class="n">Pageable</span> <span class="n">pageable</span><span class="o">,</span> <span class="n">EntityGraph</span><span class="o">.</span><span class="na">EntityGraphType</span> <span class="n">entityGraphType</span><span class="o">,</span> <span class="n">String</span> <span class="n">entityGraphName</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">TypedQuery</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">query</span> <span class="o">=</span> <span class="n">getQuery</span><span class="o">(</span><span class="n">spec</span><span class="o">,</span> <span class="n">pageable</span><span class="o">.</span><span class="na">getSort</span><span class="o">());</span>
+        <span class="n">query</span><span class="o">.</span><span class="na">setHint</span><span class="o">(</span><span class="n">entityGraphType</span><span class="o">.</span><span class="na">getKey</span><span class="o">(),</span> <span class="n">em</span><span class="o">.</span><span class="na">getEntityGraph</span><span class="o">(</span><span class="n">entityGraphName</span><span class="o">));</span>
+        <span class="k">return</span> <span class="nf">readPage</span><span class="o">(</span><span class="n">query</span><span class="o">,</span> <span class="n">pageable</span><span class="o">,</span> <span class="n">spec</span><span class="o">);</span>
+    <span class="o">}</span>
 
-    @Override
-    public Page&lt;T&gt; findAll(Specification&lt;T&gt; spec, Pageable pageable, String entityGraphName) {
-        return findAll(spec, pageable, EntityGraph.EntityGraphType.FETCH, entityGraphName);
-    }
-}
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Page</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="o">(</span><span class="n">Specification</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">spec</span><span class="o">,</span> <span class="n">Pageable</span> <span class="n">pageable</span><span class="o">,</span> <span class="n">String</span> <span class="n">entityGraphName</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nf">findAll</span><span class="o">(</span><span class="n">spec</span><span class="o">,</span> <span class="n">pageable</span><span class="o">,</span> <span class="n">EntityGraph</span><span class="o">.</span><span class="na">EntityGraphType</span><span class="o">.</span><span class="na">FETCH</span><span class="o">,</span> <span class="n">entityGraphName</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
 </code></pre>
 </div>
 <p>上面的实现类和其他正常的repository放在不同的package<br />
 配置上面的实现类</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>&lt;jpa:repositories base-package="xxx.yyy.repository"
-					  base-class="xxx.zzz.CustomRepositoryImpl"
-					  transaction-manager-ref="transactionManager"
-					  entity-manager-factory-ref="entityManagerFactory" /&gt;
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;jpa:repositories</span> <span class="na">base-package=</span><span class="s">"xxx.yyy.repository"</span>
+					  <span class="na">base-class=</span><span class="s">"xxx.zzz.CustomRepositoryImpl"</span>
+					  <span class="na">transaction-manager-ref=</span><span class="s">"transactionManager"</span>
+					  <span class="na">entity-manager-factory-ref=</span><span class="s">"entityManagerFactory"</span> <span class="nt">/&gt;</span>
 </code></pre>
 </div>
 <p>entity的代码,添加EntityGraph</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>@Table(name = "XX_YY")
-@NamedEntityGraphs({
-        @NamedEntityGraph(
-                name = "xxyyWithZZ",
-                attributeNodes = {
-						//跟下面的属性同名
-                        @NamedAttributeNode("imgList")
-                }
-        )
-})
-public class XXYYEntity implements Serializable {
-    private static final long serialVersionUID = -3476018376851461504L;
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Table</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"XX_YY"</span><span class="o">)</span>
+<span class="nd">@NamedEntityGraphs</span><span class="o">({</span>
+        <span class="nd">@NamedEntityGraph</span><span class="o">(</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="s">"xxyyWithZZ"</span><span class="o">,</span>
+                <span class="n">attributeNodes</span> <span class="o">=</span> <span class="o">{</span>
+						<span class="c1">//跟下面的属性同名</span>
+                        <span class="nd">@NamedAttributeNode</span><span class="o">(</span><span class="s">"imgList"</span><span class="o">)</span>
+                <span class="o">}</span>
+        <span class="o">)</span>
+<span class="o">})</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">XXYYEntity</span> <span class="kd">implements</span> <span class="n">Serializable</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3476018376851461504L</span><span class="o">;</span>
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private long id;
+    <span class="nd">@Id</span>
+    <span class="nd">@GeneratedValue</span><span class="o">(</span><span class="n">strategy</span> <span class="o">=</span> <span class="n">GenerationType</span><span class="o">.</span><span class="na">IDENTITY</span><span class="o">)</span>
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"id"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="kt">long</span> <span class="n">id</span><span class="o">;</span>
 
-    @Column(name = "name", length = 45)
-    private String name;
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"name"</span><span class="o">,</span> <span class="n">length</span> <span class="o">=</span> <span class="mi">45</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
 
-    @Column(name = "desc", length = 45)
-    private String desc;
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"desc"</span><span class="o">,</span> <span class="n">length</span> <span class="o">=</span> <span class="mi">45</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">desc</span><span class="o">;</span>
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "zz_id")
-    @Where(clause = "is_valid=1") //这个条件是加在XXYYZZ表的where条件里面的
-    private List&lt;XXYYZZ&gt; imgList;
-}
+    <span class="nd">@OneToMany</span><span class="o">(</span><span class="n">fetch</span> <span class="o">=</span> <span class="n">FetchType</span><span class="o">.</span><span class="na">EAGER</span><span class="o">,</span> <span class="n">cascade</span> <span class="o">=</span> <span class="n">CascadeType</span><span class="o">.</span><span class="na">ALL</span><span class="o">)</span>
+    <span class="nd">@JoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"zz_id"</span><span class="o">)</span>
+    <span class="nd">@Where</span><span class="o">(</span><span class="n">clause</span> <span class="o">=</span> <span class="s">"is_valid=1"</span><span class="o">)</span> <span class="c1">//这个条件是加在XXYYZZ表的where条件里面的</span>
+    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">XXYYZZ</span><span class="o">&gt;</span> <span class="n">imgList</span><span class="o">;</span>
+<span class="o">}</span>
 </code></pre>
 </div>
 <p>XXYY表的id和XXYYZZ的zz_id进行join关联</p>
