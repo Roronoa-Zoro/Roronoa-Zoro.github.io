@@ -15,9 +15,11 @@ author: Jimmy Lee
 
 ### mysql 相关命令 ###
 1.检查mysql缓存是否打开  
+
 ```sql
 show variables like '%query_cache%';
 ``` 
+
 Variable_name       			|Value   
 have_query_cache				|YES  
 query_cache_limit				|1048576  
