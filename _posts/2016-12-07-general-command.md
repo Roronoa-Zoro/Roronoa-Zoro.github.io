@@ -42,4 +42,5 @@ Ctrl + R
 支持的语言：actionscript, apache, bash, clojure, cmake, coffeescript, cpp, cs, css, d, delphi, django, 
 erlang, go, haskell, html, http, ini, java, javascript, json, lisp, lua, markdown, matlab, nginx, 
 objectivec, perl, php, python, r, ruby, scala, smalltalk, sql, tex, vbscript, xml  
-参考 https://segmentfault.com/markdown
+参考  
+https://segmentfault.com/markdown
