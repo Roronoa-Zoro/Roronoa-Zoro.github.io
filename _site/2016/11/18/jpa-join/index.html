@@ -242,7 +242,9 @@ spring jpa version:1.10.1<br />
 					  <span class="na">entity-manager-factory-ref=</span><span class="s">"entityManagerFactory"</span> <span class="nt">/&gt;</span>
 </code></pre>
 </div>
+
 <p>entity的代码,添加EntityGraph</p>
+
 <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Table</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"XX_YY"</span><span class="o">)</span>
 <span class="nd">@NamedEntityGraphs</span><span class="o">({</span>
         <span class="nd">@NamedEntityGraph</span><span class="o">(</span>
@@ -274,6 +276,7 @@ spring jpa version:1.10.1<br />
 <span class="o">}</span>
 </code></pre>
 </div>
+
 <p>XXYY表的id和XXYYZZ的zz_id进行join关联</p>
 
 <h3 id="section-1">如何使用</h3>
