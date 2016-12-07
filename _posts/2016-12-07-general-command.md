@@ -13,7 +13,7 @@ author: Jimmy Lee
 ### 前言
 日常使用的各种命令
 
-### -------------------------- mysql 相关命令 ---------------------  
+### mysql 相关命令 ###
 1.检查mysql缓存是否打开  
 ```sql
 show variables like '%query_cache%';
@@ -26,7 +26,7 @@ query_cache_size				|0
 query_cache_type				|OFF  
 query_cache_wlock_invalidate	|OFF  
 
-### ------------------------- IDEA 相关命令 -----------------------
+### IDEA 相关命令 ###
 1.跳转到某一行  
 Ctrl + G  
 2.当前类的方法和变量  
@@ -34,7 +34,7 @@ Ctrl + F12
 3.替换文本  
 Ctrl + R  
 
-### ------------------------- markdown 相关语法 -----------------------
+### markdown 相关语法 ###
 1.换行  
 连续2个空格  
 2.语法高亮     
