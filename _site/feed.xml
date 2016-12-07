@@ -5,9 +5,63 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 05 Dec 2016 14:20:12 +0800</pubDate>
-    <lastBuildDate>Mon, 05 Dec 2016 14:20:12 +0800</lastBuildDate>
+    <pubDate>Wed, 07 Dec 2016 11:57:57 +0800</pubDate>
+    <lastBuildDate>Wed, 07 Dec 2016 11:57:57 +0800</lastBuildDate>
     <generator>Jekyll v3.3.0</generator>
+    
+      <item>
+        <title>经常用到的各种命令</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#section&quot; id=&quot;markdown-toc-section&quot;&gt;前言&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#mysql-----------------------&quot; id=&quot;markdown-toc-mysql-----------------------&quot;&gt;————————– mysql 相关命令 ———————&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#idea-------------------------&quot; id=&quot;markdown-toc-idea-------------------------&quot;&gt;————————- IDEA 相关命令 ———————–&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#markdown-------------------------&quot; id=&quot;markdown-toc-markdown-------------------------&quot;&gt;————————- markdown 相关语法 ———————–&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;section&quot;&gt;前言&lt;/h3&gt;
+&lt;p&gt;日常使用的各种命令&lt;/p&gt;
+
+&lt;h3 id=&quot;mysql-----------------------&quot;&gt;————————– mysql 相关命令 ———————&lt;/h3&gt;
+&lt;p&gt;1.检查mysql缓存是否打开&lt;/p&gt;
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;show&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;variables&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;like&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'%query_cache%'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Variable_name       			|Value &lt;br /&gt;
+have_query_cache				|YES&lt;br /&gt;
+query_cache_limit				|1048576&lt;br /&gt;
+query_cache_min_res_unit		|4096&lt;br /&gt;
+query_cache_size				|0&lt;br /&gt;
+query_cache_type				|OFF&lt;br /&gt;
+query_cache_wlock_invalidate	|OFF&lt;/p&gt;
+
+&lt;h3 id=&quot;idea-------------------------&quot;&gt;————————- IDEA 相关命令 ———————–&lt;/h3&gt;
+&lt;p&gt;1.跳转到某一行&lt;br /&gt;
+Ctrl + G&lt;br /&gt;
+2.当前类的方法和变量&lt;br /&gt;
+Ctrl + F12&lt;br /&gt;
+3.替换文本&lt;br /&gt;
+Ctrl + R&lt;/p&gt;
+
+&lt;h3 id=&quot;markdown-------------------------&quot;&gt;————————- markdown 相关语法 ———————–&lt;/h3&gt;
+&lt;p&gt;1.换行&lt;br /&gt;
+连续2个空格&lt;br /&gt;
+2.语法高亮
+```后面加语言&lt;br /&gt;
+支持的语言：actionscript, apache, bash, clojure, cmake, coffeescript, cpp, cs, css, d, delphi, django, 
+erlang, go, haskell, html, http, ini, java, javascript, json, lisp, lua, markdown, matlab, nginx, 
+objectivec, perl, php, python, r, ruby, scala, smalltalk, sql, tex, vbscript, xml&lt;br /&gt;
+参考 https://segmentfault.com/markdown&lt;/p&gt;
+</description>
+        <pubDate>Wed, 07 Dec 2016 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2016/12/07/general-command/</link>
+        <guid isPermaLink="true">http://localhost:4000/2016/12/07/general-command/</guid>
+        
+        <category>默认分类</category>
+        
+        
+        <category>默认分类</category>
+        
+      </item>
     
       <item>
         <title>JPA 更新entity</title>

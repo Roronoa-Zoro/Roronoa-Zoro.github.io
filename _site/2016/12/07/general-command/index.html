@@ -6,14 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Archives</title>
-    <meta name="description" content="">
+    <title>经常用到的各种命令</title>
+    <meta name="description" content="  前言  ————————– mysql 相关命令 ———————  ————————- IDEA 相关命令 ———————–  ————————- markdown 相关语法 ———————–前言日常使用的各种命令————————– mysql 相关命令 ———————1.检查mysql缓存是否打开show ...">
 
     <link rel="shortcut icon" href="/favicon.ico?" type="image/x-icon">
     <link rel="icon" href="/favicon.ico?" type="image/x-icon">
     <link rel="stylesheet" href=" /css/fontawesome/css/font-awesome.min.css ">
     <link rel="stylesheet" href=" /css/main.css ">
-    <link rel="canonical" href="http://localhost:4000/archive/">
+    <link rel="canonical" href="http://localhost:4000/2016/12/07/general-command/">
     <link rel="alternate" type="application/rss+xml" title="Jimmy Lee Notes" href="http://localhost:4000 /feed.xml ">
 
 
@@ -65,8 +65,8 @@
                     
                     <li>
                         
-                        <a class="active" href="/archive/">
-                            
+                        <a href="/archive/">
+                        
                             <i class="fa fa-archive"></i>Archives
                         </a>
                     </li>
@@ -126,234 +126,191 @@
 </header>
 
 
-        <!-- <h1>Archive of posts with  'Archives'</h1> -->
-
-
-<div class="page clearfix">
+        <div class="page clearfix" post>
     <div class="left">
-        <h1>Archives</h1>
+        <h1>经常用到的各种命令</h1>
+        <div class="label">
+
+            <div class="label-card">
+                <i class="fa fa-calendar"></i>2016-12-07
+            </div>
+
+            <div class="label-card">
+                <i class="fa fa-user"></i>Jimmy Lee
+                
+            </div>
+
+            <div class="label-card">
+                
+            </div>
+
+            <div class="label-card">
+            
+
+
+<!-- <span class="point">•</span> -->
+<span class="categories">
+  <i class="fa fa-th-list"></i>
+  
+    
+        <a href="/category/#默认分类" title="Category: 默认分类" rel="category">默认分类</a>
+    
+  
+
+  <!-- <span class="point">•</span> -->
+</span>
+
+
+            </div>
+
+            <div class="label-card">
+            
+<!-- <span class="point">•</span> -->
+<span class="pageTag">
+  <i class="fa fa-tags"></i>
+  
+    
+        <!--a href="/tag/#%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB" title="Tag: 默认分类" rel="tag">默认分类</a-->
+        <a href="/tag/#默认分类" title="Tag: 默认分类" rel="tag">默认分类</a>
+    
+  
+
+</span>
+
+            </div>
+
+        </div>
         <hr>
-        <ul>
+        <article itemscope itemtype="http://schema.org/BlogPosting">
+        <ul id="markdown-toc">
+  <li><a href="#section" id="markdown-toc-section">前言</a></li>
+  <li><a href="#mysql-----------------------" id="markdown-toc-mysql-----------------------">————————– mysql 相关命令 ———————</a></li>
+  <li><a href="#idea-------------------------" id="markdown-toc-idea-------------------------">————————- IDEA 相关命令 ———————–</a></li>
+  <li><a href="#markdown-------------------------" id="markdown-toc-markdown-------------------------">————————- markdown 相关语法 ———————–</a></li>
+</ul>
+
+<h3 id="section">前言</h3>
+<p>日常使用的各种命令</p>
+
+<h3 id="mysql-----------------------">————————– mysql 相关命令 ———————</h3>
+<p>1.检查mysql缓存是否打开</p>
+<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="k">show</span> <span class="n">variables</span> <span class="k">like</span> <span class="s1">'%query_cache%'</span><span class="p">;</span>
+</code></pre>
+</div>
+<p>Variable_name       			|Value <br />
+have_query_cache				|YES<br />
+query_cache_limit				|1048576<br />
+query_cache_min_res_unit		|4096<br />
+query_cache_size				|0<br />
+query_cache_type				|OFF<br />
+query_cache_wlock_invalidate	|OFF</p>
+
+<h3 id="idea-------------------------">————————- IDEA 相关命令 ———————–</h3>
+<p>1.跳转到某一行<br />
+Ctrl + G<br />
+2.当前类的方法和变量<br />
+Ctrl + F12<br />
+3.替换文本<br />
+Ctrl + R</p>
+
+<h3 id="markdown-------------------------">————————- markdown 相关语法 ———————–</h3>
+<p>1.换行<br />
+连续2个空格<br />
+2.语法高亮
+```后面加语言<br />
+支持的语言：actionscript, apache, bash, clojure, cmake, coffeescript, cpp, cs, css, d, delphi, django, 
+erlang, go, haskell, html, http, ini, java, javascript, json, lisp, lua, markdown, matlab, nginx, 
+objectivec, perl, php, python, r, ruby, scala, smalltalk, sql, tex, vbscript, xml<br />
+参考 https://segmentfault.com/markdown</p>
+
+        </article>
+        <hr>
+        
+        
+            
+            
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                        
+                        <h2 id="similar_posts">Similar Posts</h2>
+                        <ul>
+                        
+                        <li class="relatedPost">
+                            <a href="http://localhost:4000/2016/10/26/illegal-access/">Hello world！
+                            
+                            </a>
+                        </li>
+                        
+                        
+                    
+                
+            
+        
+        
+            </ul>
+        
+
+        <hr>
+        <div class="post-recent">
           
-
-            
-              <h2 id="y2016">2016</h2>
-            
-
-            <li>
-                <time>
-                2016-12-07 Wed.
-                </time>
-                <a class="title" href="/2016/12/07/general-command/">经常用到的各种命令</a>
-
-                
-
-
-<!-- <span class="point">•</span> -->
-<span class="categories">
-  <i class="fa fa-th-list"></i>
-  
-    
-        <a href="/category/#默认分类" title="Category: 默认分类" rel="category">默认分类</a>
-    
-  
-
-  <!-- <span class="point">•</span> -->
-</span>
-
-
-                
-<!-- <span class="point">•</span> -->
-<span class="pageTag">
-  <i class="fa fa-tags"></i>
-  
-    
-        <a href="/tag/#默认分类" title="Tag: 默认分类" rel="tag">默认分类</a>
-    
-  
-
-</span>
-
-            </li>
-
+            <p>上一篇 <a href="/2016/12/05/jpa%E6%9B%B4%E6%96%B0/">JPA 更新entity</a></p>
           
-
-            
-              
-              
-              
-            
-
-            <li>
-                <time>
-                2016-12-05 Mon.
-                </time>
-                <a class="title" href="/2016/12/05/jpa%E6%9B%B4%E6%96%B0/">JPA 更新entity</a>
-
-                
-
-
-<!-- <span class="point">•</span> -->
-<span class="categories">
-  <i class="fa fa-th-list"></i>
-  
-    
-        <a href="/category/#ORM" title="Category: ORM" rel="category">ORM</a>
-    
-  
-
-  <!-- <span class="point">•</span> -->
-</span>
-
-
-                
-<!-- <span class="point">•</span> -->
-<span class="pageTag">
-  <i class="fa fa-tags"></i>
-  
-    
-        <a href="/tag/#jpa" title="Tag: jpa" rel="tag">jpa</a>
-    
-  
-
-</span>
-
-            </li>
-
           
+        </div>
+        <hr>
 
-            
-              
-              
-              
-            
-
-            <li>
-                <time>
-                2016-11-18 Fri.
-                </time>
-                <a class="title" href="/2016/11/18/jpa-join/">JPA join查询使用</a>
-
-                
+        <h2 id="comments">Comments</h2>
+        
 
 
-<!-- <span class="point">•</span> -->
-<span class="categories">
-  <i class="fa fa-th-list"></i>
-  
-    
-        <a href="/category/#ORM" title="Category: ORM" rel="category">ORM</a>
-    
-  
+<div id="disqus_thread"></div>
+<script>
+    /**
+     * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
 
-  <!-- <span class="point">•</span> -->
-</span>
+    var disqus_config = function() {
+        this.page.url = 'http://localhost:4000/2016/12/07/general-command/'; // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://localhost:4000/2016/12/07/general-command/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
 
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document,
+            s = d.createElement('script');
 
-                
-<!-- <span class="point">•</span> -->
-<span class="pageTag">
-  <i class="fa fa-tags"></i>
-  
-    
-        <a href="/tag/#jpa" title="Tag: jpa" rel="tag">jpa</a>
-    
-  
+        s.src = '//roronoa-jimmy.disqus.com/embed.js';
 
-</span>
-
-            </li>
-
-          
-
-            
-              
-              
-              
-            
-
-            <li>
-                <time>
-                2016-11-01 Tue.
-                </time>
-                <a class="title" href="/2016/11/01/resteasy-flow/">resteasy调用流程</a>
-
-                
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
 
-<!-- <span class="point">•</span> -->
-<span class="categories">
-  <i class="fa fa-th-list"></i>
-  
-    
-        <a href="/category/#RPC" title="Category: RPC" rel="category">RPC</a>
-    
-  
-
-  <!-- <span class="point">•</span> -->
-</span>
 
 
-                
-<!-- <span class="point">•</span> -->
-<span class="pageTag">
-  <i class="fa fa-tags"></i>
-  
-    
-        <a href="/tag/#rpc" title="Tag: rpc" rel="tag">rpc</a>
-    
-  
-
-</span>
-
-            </li>
-
-          
-
-            
-              
-              
-              
-            
-
-            <li>
-                <time>
-                2016-10-26 Wed.
-                </time>
-                <a class="title" href="/2016/10/26/illegal-access/">Hello world！</a>
-
-                
-
-
-<!-- <span class="point">•</span> -->
-<span class="categories">
-  <i class="fa fa-th-list"></i>
-  
-    
-        <a href="/category/#默认分类" title="Category: 默认分类" rel="category">默认分类</a>
-    
-  
-
-  <!-- <span class="point">•</span> -->
-</span>
-
-
-                
-<!-- <span class="point">•</span> -->
-<span class="pageTag">
-  <i class="fa fa-tags"></i>
-  
-    
-        <a href="/tag/#默认分类" title="Tag: 默认分类" rel="tag">默认分类</a>
-    
-  
-
-</span>
-
-            </li>
-
-          
-        </ul>
     </div>
     <button class="anchor"><i class="fa fa-anchor"></i></button>
     <div class="right">
@@ -365,36 +322,8 @@
                     Content
                 </div>
                 <ul id="content-side" class="content-ul">
-                    
-                        
-                          
-                          
-                          
-                          
-                        
-                          
-                          
-                          
-                          
-                        
-                          
-                          
-                          
-                          
-                        
-                          
-                          
-                          
-                          
-                        
-                          
-                          
-                          
-                          
-                            <li><a class="scroll" href="#y2016">2016 (5)</a></li>
-                            
-                          
-                        
+                    <li><a href="#similar_posts">Similar Posts</a></li>
+                    <li><a href="#comments">Comments</a></li>
                 </ul>
             </div>
             <!-- 其他div框放到这里 -->
@@ -402,6 +331,17 @@
         </div>
     </div>
 </div>
+<script>
+/**
+ * target _blank
+ */
+(function() {
+    var aTags = document.querySelectorAll('article a:not([id])')
+    for (var i = 0; i < aTags.length; i++) {
+        aTags[i].setAttribute('target', '_blank')
+    }
+}());
+</script>
 <script src="/js/pageContent.js " charset="utf-8"></script>
 
 
