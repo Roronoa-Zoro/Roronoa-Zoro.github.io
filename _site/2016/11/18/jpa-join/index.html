@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>JPA join查询使用</title>
-    <meta name="description" content="  前言  步骤一, 定义自定义的repository  步骤二, 实现上面的repository  如何使用  问题前言使用spring jpa作为orm工具，有一个单向一对多关系，进行查询的问题，不加额外处理会有n+1问题spring jpa version:1.10.1底层hibernate: 5.1.0步...">
+    <meta name="description" content="  前言  步骤一, 定义自定义的repository  步骤二, 实现上面的repository  步骤三, 配置  如何使用  问题前言使用spring jpa作为orm工具，有一个单向一对多关系，进行查询的问题，不加额外处理会有n+1问题spring jpa version:1.10.1底层hibernat...">
 
     <link rel="shortcut icon" href="/favicon.ico?" type="image/x-icon">
     <link rel="icon" href="/favicon.ico?" type="image/x-icon">
@@ -186,8 +186,9 @@
   <li><a href="#section" id="markdown-toc-section">前言</a></li>
   <li><a href="#repository" id="markdown-toc-repository">步骤一, 定义自定义的repository</a></li>
   <li><a href="#repository-1" id="markdown-toc-repository-1">步骤二, 实现上面的repository</a></li>
-  <li><a href="#section-1" id="markdown-toc-section-1">如何使用</a></li>
-  <li><a href="#section-2" id="markdown-toc-section-2">问题</a></li>
+  <li><a href="#section-1" id="markdown-toc-section-1">步骤三, 配置</a></li>
+  <li><a href="#section-2" id="markdown-toc-section-2">如何使用</a></li>
+  <li><a href="#section-3" id="markdown-toc-section-3">问题</a></li>
 </ul>
 
 <h3 id="section">前言</h3>
@@ -209,33 +210,32 @@ spring jpa version:1.10.1<br />
 <p>主要是使用EntityGraph</p>
 
 <h3 id="repository-1">步骤二, 实现上面的repository</h3>
-<div class="highlighter-rouge"><pre class="highlight"><code>public class CustomRepositoryImpl&lt;T, ID extends Serializable&gt; extends SimpleJpaRepository&lt;T, ID&gt; implements CustomRepository&lt;T, ID&gt; {
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomRepositoryImpl</span><span class="o">&lt;</span><span class="n">T</span><span class="o">,</span> <span class="n">ID</span> <span class="kd">extends</span> <span class="n">Serializable</span><span class="o">&gt;</span> <span class="kd">extends</span> <span class="n">SimpleJpaRepository</span><span class="o">&lt;</span><span class="n">T</span><span class="o">,</span> <span class="n">ID</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="n">CustomRepository</span><span class="o">&lt;</span><span class="n">T</span><span class="o">,</span> <span class="n">ID</span><span class="o">&gt;</span> <span class="o">{</span>
 
-    private EntityManager em;
+    <span class="kd">private</span> <span class="n">EntityManager</span> <span class="n">em</span><span class="o">;</span>
 
-    public CustomRepositoryImpl(JpaEntityInformation entityInformation,
-                            EntityManager entityManager) {
-        super(entityInformation, entityManager);
+    <span class="kd">public</span> <span class="nf">CustomRepositoryImpl</span><span class="o">(</span><span class="n">JpaEntityInformation</span> <span class="n">entityInformation</span><span class="o">,</span>
+                            <span class="n">EntityManager</span> <span class="n">entityManager</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">entityInformation</span><span class="o">,</span> <span class="n">entityManager</span><span class="o">);</span>
 
-        this.em = entityManager;
-    }
+        <span class="k">this</span><span class="o">.</span><span class="na">em</span> <span class="o">=</span> <span class="n">entityManager</span><span class="o">;</span>
+    <span class="o">}</span>
 
-    @Override
-    public Page&lt;T&gt; findAll(Specification&lt;T&gt; spec, Pageable pageable, EntityGraph.EntityGraphType entityGraphType, String entityGraphName) {
-        TypedQuery&lt;T&gt; query = getQuery(spec, pageable.getSort());
-        query.setHint(entityGraphType.getKey(), em.getEntityGraph(entityGraphName));
-        return readPage(query, pageable, spec);
-    }
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Page</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="o">(</span><span class="n">Specification</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">spec</span><span class="o">,</span> <span class="n">Pageable</span> <span class="n">pageable</span><span class="o">,</span> <span class="n">EntityGraph</span><span class="o">.</span><span class="na">EntityGraphType</span> <span class="n">entityGraphType</span><span class="o">,</span> <span class="n">String</span> <span class="n">entityGraphName</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">TypedQuery</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">query</span> <span class="o">=</span> <span class="n">getQuery</span><span class="o">(</span><span class="n">spec</span><span class="o">,</span> <span class="n">pageable</span><span class="o">.</span><span class="na">getSort</span><span class="o">());</span>
+        <span class="n">query</span><span class="o">.</span><span class="na">setHint</span><span class="o">(</span><span class="n">entityGraphType</span><span class="o">.</span><span class="na">getKey</span><span class="o">(),</span> <span class="n">em</span><span class="o">.</span><span class="na">getEntityGraph</span><span class="o">(</span><span class="n">entityGraphName</span><span class="o">));</span>
+        <span class="k">return</span> <span class="nf">readPage</span><span class="o">(</span><span class="n">query</span><span class="o">,</span> <span class="n">pageable</span><span class="o">,</span> <span class="n">spec</span><span class="o">);</span>
+    <span class="o">}</span>
 
-    @Override
-    public Page&lt;T&gt; findAll(Specification&lt;T&gt; spec, Pageable pageable, String entityGraphName) {
-        return findAll(spec, pageable, EntityGraph.EntityGraphType.FETCH, entityGraphName);
-    }
-}
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Page</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="o">(</span><span class="n">Specification</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">spec</span><span class="o">,</span> <span class="n">Pageable</span> <span class="n">pageable</span><span class="o">,</span> <span class="n">String</span> <span class="n">entityGraphName</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nf">findAll</span><span class="o">(</span><span class="n">spec</span><span class="o">,</span> <span class="n">pageable</span><span class="o">,</span> <span class="n">EntityGraph</span><span class="o">.</span><span class="na">EntityGraphType</span><span class="o">.</span><span class="na">FETCH</span><span class="o">,</span> <span class="n">entityGraphName</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
 </code></pre>
 </div>
-<p>上面的实现类和其他正常的repository放在不同的package<br />
-配置上面的实现类</p>
+<p>上面的实现类和其他正常的repository放在不同的package</p>
 
 <p>entity的代码,添加EntityGraph</p>
 
@@ -272,15 +272,22 @@ spring jpa version:1.10.1<br />
 </div>
 
 <p>XXYY表的id和XXYYZZ的zz_id进行join关联</p>
+<h3 id="section-1">步骤三, 配置</h3>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;jpa:repositories</span> <span class="na">base-package=</span><span class="s">"xxx.yyy.repository"</span>  
+					  <span class="na">base-class=</span><span class="s">"xxx.zzz.CustomRepositoryImpl"</span>  
+					  <span class="na">transaction-manager-ref=</span><span class="s">"transactionManager"</span>  
+					  <span class="na">entity-manager-factory-ref=</span><span class="s">"entityManagerFactory"</span> <span class="nt">/&gt;</span>
+</code></pre>
+</div>
 
-<h3 id="section-1">如何使用</h3>
+<h3 id="section-2">如何使用</h3>
 <p>定义一个repository，继续最开始的自定义repository接口，然后在service里面组装好Specification，Pageable，并指定entigyGraph名称
 进行调用</p>
 <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Page</span><span class="o">&lt;</span><span class="n">XXYYEntity</span><span class="o">&gt;</span> <span class="n">content</span> <span class="o">=</span> <span class="n">xxyyRepository</span><span class="o">.</span><span class="na">findAll</span><span class="o">(</span><span class="n">spec</span><span class="o">,</span> <span class="n">pageable</span><span class="o">,</span> <span class="s">"xxyyWithZZ"</span><span class="o">);</span>
 </code></pre>
 </div>
 
-<h3 id="section-2">问题</h3>
+<h3 id="section-3">问题</h3>
 <p>1.若一个entity包括多个一对多关系，则需要把list换成set，否则报错，或者显示指定@IndexColumn
 2.不使用上面的方式，直接定义一个repository,然后使用@EntityGraph注解</p>
 <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">XXYYRepository</span> <span class="kd">extends</span> <span class="n">JpaRepository</span><span class="o">&lt;</span><span class="n">XXYYEntity</span><span class="o">,</span> <span class="n">Long</span><span class="o">&gt;,</span>
@@ -291,6 +298,7 @@ spring jpa version:1.10.1<br />
 <span class="o">}</span>
 </code></pre>
 </div>
+
 <p>假设xxyy有4条记录，前两条记录分别有2条XXYYZZ，则上述查询会返回6条记录,如下<br />
 1-{2条xxyyzz}<br />
 1-{2条xxyyzz}<br />
