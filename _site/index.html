@@ -454,12 +454,6 @@ spring jpa version:1.10.1<br />
 </div>
 <p>上面的实现类和其他正常的repository放在不同的package<br />
 配置上面的实现类</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>&lt;jpa:repositories base-package="xxx.yyy.repository"
-					  base-class="xxx.zzz.CustomRepositoryImpl"
-					  transaction-manager-ref="transactionManager"
-					  entity-manager-factory-ref="entityManagerFactory" /&gt;
-</code></pre>
-</div>
 
 <p>entity的代码,添加EntityGraph</p>
 
@@ -500,19 +494,19 @@ spring jpa version:1.10.1<br />
 <h3 id="section-1">如何使用</h3>
 <p>定义一个repository，继续最开始的自定义repository接口，然后在service里面组装好Specification，Pageable，并指定entigyGraph名称
 进行调用</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>Page&lt;XXYYEntity&gt; content = xxyyRepository.findAll(spec, pageable, "xxyyWithZZ");
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Page</span><span class="o">&lt;</span><span class="n">XXYYEntity</span><span class="o">&gt;</span> <span class="n">content</span> <span class="o">=</span> <span class="n">xxyyRepository</span><span class="o">.</span><span class="na">findAll</span><span class="o">(</span><span class="n">spec</span><span class="o">,</span> <span class="n">pageable</span><span class="o">,</span> <span class="s">"xxyyWithZZ"</span><span class="o">);</span>
 </code></pre>
 </div>
 
 <h3 id="section-2">问题</h3>
 <p>1.若一个entity包括多个一对多关系，则需要把list换成set，否则报错，或者显示指定@IndexColumn
 2.不使用上面的方式，直接定义一个repository,然后使用@EntityGraph注解</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>XXYYRepository extends JpaRepository&lt;XXYYEntity, Long&gt;,
-        JpaSpecificationExecutor&lt;XXYYEntity&gt; {
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">XXYYRepository</span> <span class="kd">extends</span> <span class="n">JpaRepository</span><span class="o">&lt;</span><span class="n">XXYYEntity</span><span class="o">,</span> <span class="n">Long</span><span class="o">&gt;,</span>
+        <span class="n">JpaSpecificationExecutor</span><span class="o">&lt;</span><span class="n">XXYYEntity</span><span class="o">&gt;</span> <span class="o">{</span>
 	
-	@EntityGraph("xxyyWithZZ")
-	List&lt;XXYYEntity&gt; getByIsValid(int valid);
-}
+	<span class="nd">@EntityGraph</span><span class="o">(</span><span class="s">"xxyyWithZZ"</span><span class="o">)</span>
+	<span class="n">List</span><span class="o">&lt;</span><span class="n">XXYYEntity</span><span class="o">&gt;</span> <span class="nf">getByIsValid</span><span class="o">(</span><span class="kt">int</span> <span class="n">valid</span><span class="o">);</span>
+<span class="o">}</span>
 </code></pre>
 </div>
 <p>假设xxyy有4条记录，前两条记录分别有2条XXYYZZ，则上述查询会返回6条记录,如下<br />
