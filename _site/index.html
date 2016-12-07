@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Jimmy Lee Notes</title>
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="/favicon.ico?" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico?" type="image/x-icon">
+    <link rel="stylesheet" href=" /css/fontawesome/css/font-awesome.min.css ">
+    <link rel="stylesheet" href=" /css/main.css ">
+    <link rel="canonical" href="http://localhost:4000/">
+    <link rel="alternate" type="application/rss+xml" title="Jimmy Lee Notes" href="http://localhost:4000 /feed.xml ">
+
+
+    <script>
+    // 百度统计代码
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?18334e5710eb9486181783eba5ec850b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+    <script>
+    // google analytics
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-78557946-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+</head>
+
+
+  <body>
+
+    <header id="top">
+    <div class="wrapper">
+        <a href="/" class="brand">Jimmy Lee Notes</a>
+        <small>Take notes, Reading...</small>
+        <button id="headerMenu" class="menu"><i class="fa fa-bars"></i></button>
+        <nav id="headerNav">
+            <ul>
+                <li>
+                    
+                    <a class="active" href="/">
+                        
+                        <i class="fa fa-home"></i>Home
+                    </a>
+                </li>
+
+                
+                    
+                    <li>
+                        
+                        <a href="/archive/">
+                        
+                            <i class="fa fa-archive"></i>Archives
+                        </a>
+                    </li>
+                    
+                
+                    
+                    <li>
+                        
+                        <a href="/category/">
+                        
+                            <i class="fa fa-th-list"></i>Categories
+                        </a>
+                    </li>
+                    
+                
+                    
+                    <li>
+                        
+                        <a href="/tag/">
+                        
+                            <i class="fa fa-tags"></i>Tags
+                        </a>
+                    </li>
+                    
+                
+                    
+                
+                    
+                    <li>
+                        
+                        <a href="/link/">
+                        
+                            <i class="fa fa-link"></i>Links
+                        </a>
+                    </li>
+                    
+                
+                    
+                    <li>
+                        
+                        <a href="/about/">
+                        
+                            <i class="fa fa-heart"></i>About
+                        </a>
+                    </li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        </nav>
+    </div>
+</header>
+
+
+        <div class="page clearfix" index>
+    <div class="left">
+        <h1>Work hard, enjoy life, make history</h1>
+        <hr>
+        <ul>
+            
+              <li>
+                <h2>
+                  <a class="post-link" href="/2016/12/07/general-command/">经常用到的各种命令</a>
+                </h2>
+                <div class="label">
+                    <div class="label-card">
+                        <i class="fa fa-calendar"></i>2016-12-07
+                    </div>
+                    <div class="label-card">
+                        <i class="fa fa-user"></i>Jimmy Lee
+                        
+                    </div>
+                    <div class="label-card">
+                        
+                    </div>
+
+                    <div class="label-card">
+                    
+
+
+<!-- <span class="point">•</span> -->
+<span class="categories">
+  <i class="fa fa-th-list"></i>
+  
+    
+        <a href="/category/#默认分类" title="Category: 默认分类" rel="category">默认分类</a>
+    
+  
+
+  <!-- <span class="point">•</span> -->
+</span>
+
+
+                    </div>
+
+                    <div class="label-card">
+                    
+<!-- <span class="point">•</span> -->
+<span class="pageTag">
+  <i class="fa fa-tags"></i>
+  
+    
+        <a href="/tag/#默认分类" title="Tag: 默认分类" rel="tag">默认分类</a>
+    
+  
+
+</span>
+
+                    </div>
+                </div>
+                <div class="excerpt">
+                    <ul id="markdown-toc">
+  <li><a href="#section" id="markdown-toc-section">前言</a></li>
+  <li><a href="#mysql-" id="markdown-toc-mysql-">mysql 相关命令</a></li>
+  <li><a href="#idea-" id="markdown-toc-idea-">IDEA 相关命令</a></li>
+  <li><a href="#markdown-" id="markdown-toc-markdown-">markdown 相关语法</a></li>
+</ul>
+
+<h3 id="section">前言</h3>
+<p>日常使用的各种命令</p>
+
+<h3 id="mysql-">mysql 相关命令</h3>
+<p>1.检查mysql缓存是否打开</p>
+<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="k">show</span> <span class="n">variables</span> <span class="k">like</span> <span class="s1">'%query_cache%'</span><span class="p">;</span>
+</code></pre>
+</div>
+<p>Variable_name       			|Value <br />
+have_query_cache				|YES<br />
+query_cache_limit				|1048576<br />
+query_cache_min_res_unit		|4096<br />
+query_cache_size				|0<br />
+query_cache_type				|OFF<br />
+query_cache_wlock_invalidate	|OFF</p>
+
+<h3 id="idea-">IDEA 相关命令</h3>
+<p>1.跳转到某一行<br />
+Ctrl + G<br />
+2.当前类的方法和变量<br />
+Ctrl + F12<br />
+3.替换文本<br />
+Ctrl + R</p>
+
+<h3 id="markdown-">markdown 相关语法</h3>
+<p>1.换行<br />
+连续2个空格<br />
+2.语法高亮
+```后面加语言<br />
+支持的语言：actionscript, apache, bash, clojure, cmake, coffeescript, cpp, cs, css, d, delphi, django, 
+erlang, go, haskell, html, http, ini, java, javascript, json, lisp, lua, markdown, matlab, nginx, 
+objectivec, perl, php, python, r, ruby, scala, smalltalk, sql, tex, vbscript, xml<br />
+参考<br />
+https://segmentfault.com/markdown</p>
+
+                </div>
+                <div class="read-all">
+                    <a  href="/2016/12/07/general-command/"><i class="fa fa-newspaper-o"></i>Read All</a>
+                </div>
+                <hr>
+              </li>
+            
+              <li>
+                <h2>
+                  <a class="post-link" href="/2016/12/05/jpa%E6%9B%B4%E6%96%B0/">JPA 更新entity</a>
+                </h2>
+                <div class="label">
+                    <div class="label-card">
+                        <i class="fa fa-calendar"></i>2016-12-05
+                    </div>
+                    <div class="label-card">
+                        <i class="fa fa-user"></i>Jimmy Lee
+                        
+                    </div>
+                    <div class="label-card">
+                        
+                    </div>
+
+                    <div class="label-card">
+                    
+
+
+<!-- <span class="point">•</span> -->
+<span class="categories">
+  <i class="fa fa-th-list"></i>
+  
+    
+        <a href="/category/#ORM" title="Category: ORM" rel="category">ORM</a>
+    
+  
+
+  <!-- <span class="point">•</span> -->
+</span>
+
+
+                    </div>
+
+                    <div class="label-card">
+                    
+<!-- <span class="point">•</span> -->
+<span class="pageTag">
+  <i class="fa fa-tags"></i>
+  
+    
+        <a href="/tag/#jpa" title="Tag: jpa" rel="tag">jpa</a>
+    
+  
+
+</span>
+
+                    </div>
+                </div>
+                <div class="excerpt">
+                    <ul id="markdown-toc">
+  <li><a href="#section" id="markdown-toc-section">前言</a></li>
+  <li><a href="#section-1" id="markdown-toc-section-1">场景</a></li>
+  <li><a href="#section-2" id="markdown-toc-section-2">遇到的问题</a></li>
+  <li><a href="#section-3" id="markdown-toc-section-3">执行过程</a></li>
+  <li><a href="#section-4" id="markdown-toc-section-4">总结</a></li>
+</ul>
+
+<h3 id="section">前言</h3>
+<p>算是对spring jpa对象状态的进一步理解吧<br />
+spring jpa version:1.10.1<br />
+底层hibernate: 5.1.0</p>
+
+<h3 id="section-1">场景</h3>
+<p>从数据库查询出一些任务数据,分发,更改任务状态,执行任务,然后更新任务下次执行时间</p>
+
+<h3 id="section-2">遇到的问题</h3>
+<p>save的时候除了下次执行时间,status字段也被更新了,由于在entity上面使用的dynamic update注解,所以debug看看具体怎么发生的</p>
+
+<h3 id="section-3">执行过程</h3>
+<p>1.一路debug,进入到DefaultMergeEventListener,onMerge(line:64) -&gt; createEntityCopyObserver(line:77) -&gt; onMerge(line:105) 
+2.在line:144,获取EntityEntry,后续判断,发现对象已经处于游离状态</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="k">switch</span> <span class="o">(</span> <span class="n">entityState</span> <span class="o">)</span> <span class="o">{</span> 
+	<span class="k">case</span> <span class="nl">DETACHED:</span> 
+		<span class="n">entityIsDetached</span><span class="o">(</span> <span class="n">event</span><span class="o">,</span> <span class="n">copyCache</span> <span class="o">);</span> 
+		<span class="k">break</span><span class="o">;</span> 
+	<span class="k">case</span> <span class="nl">TRANSIENT:</span> 
+		<span class="n">entityIsTransient</span><span class="o">(</span> <span class="n">event</span><span class="o">,</span> <span class="n">copyCache</span> <span class="o">);</span> 
+		<span class="k">break</span><span class="o">;</span> 
+	<span class="k">case</span> <span class="nl">PERSISTENT:</span> 
+		<span class="n">entityIsPersistent</span><span class="o">(</span> <span class="n">event</span><span class="o">,</span> <span class="n">copyCache</span> <span class="o">);</span> 
+		<span class="k">break</span><span class="o">;</span> 
+	<span class="k">default</span><span class="o">:</span> <span class="c1">//DELETED  </span>
+		<span class="k">throw</span> <span class="k">new</span> <span class="nf">ObjectDeletedException</span><span class="o">(</span> 
+			<span class="s">"deleted instance passed to merge"</span><span class="o">,</span> 
+			<span class="kc">null</span><span class="o">,</span> 
+			<span class="n">getLoggableName</span><span class="o">(</span> <span class="n">event</span><span class="o">.</span><span class="na">getEntityName</span><span class="o">(),</span> <span class="n">entity</span> <span class="o">)</span> 
+		<span class="o">);</span> 
+<span class="o">}</span> 
+</code></pre>
+</div>
+<p>然后进入到entityIsDetached方法 
+3.在这个方法里面(依然在DefaultMergeEventListener),line:289,从数据库读了一次,从log也可以看到进行了一次数据库读操作,
+到下面的line:326,如下,target是从数据库刚读出来的对象,entity是我们想要进行update的对象,在copyValues的时候,虽然我们只
+更新了执行时间,但是这时候2个对象的status值也是不同的,所以target的status被赋予了entity的status值,而这个值是错误的,
+所以打印的update sql里面包含了set status=X 的语句</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// cascade first, so that all unsaved objects get their </span>
+<span class="c1">// copy created before we actually copy </span>
+<span class="n">cascadeOnMerge</span><span class="o">(</span> <span class="n">source</span><span class="o">,</span> <span class="n">persister</span><span class="o">,</span> <span class="n">entity</span><span class="o">,</span> <span class="n">copyCache</span> <span class="o">);</span> 
+<span class="n">copyValues</span><span class="o">(</span> <span class="n">persister</span><span class="o">,</span> <span class="n">entity</span><span class="o">,</span> <span class="n">target</span><span class="o">,</span> <span class="n">source</span><span class="o">,</span> <span class="n">copyCache</span> <span class="o">);</span> 
+ 
+<span class="c1">//copyValues works by reflection, so explicitly mark the entity instance dirty </span>
+<span class="n">markInterceptorDirty</span><span class="o">(</span> <span class="n">entity</span><span class="o">,</span> <span class="n">target</span><span class="o">,</span> <span class="n">persister</span> <span class="o">);</span> 
+</code></pre>
+</div>
+
+<h3 id="section-4">总结</h3>
+<p>对spring jpa中对象的状态变化不够了解啊,数据查出来后,事务提交,则该对象就变成游离状态了 
+<img src="images/spring-jpa-obj-status.png" alt="" /></p>
+
+                </div>
+                <div class="read-all">
+                    <a  href="/2016/12/05/jpa%E6%9B%B4%E6%96%B0/"><i class="fa fa-newspaper-o"></i>Read All</a>
+                </div>
+                <hr>
+              </li>
+            
+              <li>
+                <h2>
+                  <a class="post-link" href="/2016/11/18/jpa-join/">JPA join查询使用</a>
+                </h2>
+                <div class="label">
+                    <div class="label-card">
+                        <i class="fa fa-calendar"></i>2016-11-18
+                    </div>
+                    <div class="label-card">
+                        <i class="fa fa-user"></i>Jimmy Lee
+                        
+                    </div>
+                    <div class="label-card">
+                        
+                    </div>
+
+                    <div class="label-card">
+                    
+
+
+<!-- <span class="point">•</span> -->
+<span class="categories">
+  <i class="fa fa-th-list"></i>
+  
+    
+        <a href="/category/#ORM" title="Category: ORM" rel="category">ORM</a>
+    
+  
+
+  <!-- <span class="point">•</span> -->
+</span>
+
+
+                    </div>
+
+                    <div class="label-card">
+                    
+<!-- <span class="point">•</span> -->
+<span class="pageTag">
+  <i class="fa fa-tags"></i>
+  
+    
+        <a href="/tag/#jpa" title="Tag: jpa" rel="tag">jpa</a>
+    
+  
+
+</span>
+
+                    </div>
+                </div>
+                <div class="excerpt">
+                    <ul id="markdown-toc">
+  <li><a href="#section" id="markdown-toc-section">前言</a></li>
+  <li><a href="#repository" id="markdown-toc-repository">步骤一, 定义自定义的repository</a></li>
+  <li><a href="#repository-1" id="markdown-toc-repository-1">步骤二, 实现上面的repository</a></li>
+  <li><a href="#section-1" id="markdown-toc-section-1">步骤三, 配置</a></li>
+  <li><a href="#section-2" id="markdown-toc-section-2">如何使用</a></li>
+  <li><a href="#section-3" id="markdown-toc-section-3">问题</a></li>
+</ul>
+
+<h3 id="section">前言</h3>
+<p>使用spring jpa作为orm工具，有一个单向一对多关系，进行查询的问题，不加额外处理会有n+1问题<br />
+spring jpa version:1.10.1<br />
+底层hibernate: 5.1.0</p>
+
+<h3 id="repository">步骤一, 定义自定义的repository</h3>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@NoRepositoryBean</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">CustomRepository</span><span class="o">&lt;</span><span class="n">T</span><span class="o">,</span> <span class="n">ID</span> <span class="kd">extends</span> <span class="n">Serializable</span><span class="o">&gt;</span> <span class="kd">extends</span> <span class="n">JpaRepository</span><span class="o">&lt;</span><span class="n">T</span><span class="o">,</span> <span class="n">ID</span><span class="o">&gt;,</span> <span class="n">JpaSpecificationExecutor</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
+
+    <span class="n">Page</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="o">(</span><span class="n">Specification</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">spec</span><span class="o">,</span> <span class="n">Pageable</span> <span class="n">pageable</span><span class="o">,</span> <span class="n">EntityGraph</span><span class="o">.</span><span class="na">EntityGraphType</span> <span class="n">entityGraphType</span><span class="o">,</span> <span class="n">String</span> <span class="n">entityGraphName</span><span class="o">);</span>
+
+    <span class="n">Page</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="o">(</span><span class="n">Specification</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">spec</span><span class="o">,</span> <span class="n">Pageable</span> <span class="n">pageable</span><span class="o">,</span> <span class="n">String</span> <span class="n">entityGraphName</span><span class="o">);</span>
+<span class="o">}</span>  
+</code></pre>
+</div>
+
+<p>主要是使用EntityGraph</p>
+
+<h3 id="repository-1">步骤二, 实现上面的repository</h3>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomRepositoryImpl</span><span class="o">&lt;</span><span class="n">T</span><span class="o">,</span> <span class="n">ID</span> <span class="kd">extends</span> <span class="n">Serializable</span><span class="o">&gt;</span> <span class="kd">extends</span> <span class="n">SimpleJpaRepository</span><span class="o">&lt;</span><span class="n">T</span><span class="o">,</span> <span class="n">ID</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="n">CustomRepository</span><span class="o">&lt;</span><span class="n">T</span><span class="o">,</span> <span class="n">ID</span><span class="o">&gt;</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="n">EntityManager</span> <span class="n">em</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">CustomRepositoryImpl</span><span class="o">(</span><span class="n">JpaEntityInformation</span> <span class="n">entityInformation</span><span class="o">,</span>
+                            <span class="n">EntityManager</span> <span class="n">entityManager</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">entityInformation</span><span class="o">,</span> <span class="n">entityManager</span><span class="o">);</span>
+
+        <span class="k">this</span><span class="o">.</span><span class="na">em</span> <span class="o">=</span> <span class="n">entityManager</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Page</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="o">(</span><span class="n">Specification</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">spec</span><span class="o">,</span> <span class="n">Pageable</span> <span class="n">pageable</span><span class="o">,</span> <span class="n">EntityGraph</span><span class="o">.</span><span class="na">EntityGraphType</span> <span class="n">entityGraphType</span><span class="o">,</span> <span class="n">String</span> <span class="n">entityGraphName</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">TypedQuery</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">query</span> <span class="o">=</span> <span class="n">getQuery</span><span class="o">(</span><span class="n">spec</span><span class="o">,</span> <span class="n">pageable</span><span class="o">.</span><span class="na">getSort</span><span class="o">());</span>
+        <span class="n">query</span><span class="o">.</span><span class="na">setHint</span><span class="o">(</span><span class="n">entityGraphType</span><span class="o">.</span><span class="na">getKey</span><span class="o">(),</span> <span class="n">em</span><span class="o">.</span><span class="na">getEntityGraph</span><span class="o">(</span><span class="n">entityGraphName</span><span class="o">));</span>
+        <span class="k">return</span> <span class="nf">readPage</span><span class="o">(</span><span class="n">query</span><span class="o">,</span> <span class="n">pageable</span><span class="o">,</span> <span class="n">spec</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Page</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="o">(</span><span class="n">Specification</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">spec</span><span class="o">,</span> <span class="n">Pageable</span> <span class="n">pageable</span><span class="o">,</span> <span class="n">String</span> <span class="n">entityGraphName</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nf">findAll</span><span class="o">(</span><span class="n">spec</span><span class="o">,</span> <span class="n">pageable</span><span class="o">,</span> <span class="n">EntityGraph</span><span class="o">.</span><span class="na">EntityGraphType</span><span class="o">.</span><span class="na">FETCH</span><span class="o">,</span> <span class="n">entityGraphName</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+<p>上面的实现类和其他正常的repository放在不同的package</p>
+
+<p>entity的代码,添加EntityGraph</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Table</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"XX_YY"</span><span class="o">)</span>
+<span class="nd">@NamedEntityGraphs</span><span class="o">({</span>
+        <span class="nd">@NamedEntityGraph</span><span class="o">(</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="s">"xxyyWithZZ"</span><span class="o">,</span>
+                <span class="n">attributeNodes</span> <span class="o">=</span> <span class="o">{</span>
+						<span class="c1">//跟下面的属性同名</span>
+                        <span class="nd">@NamedAttributeNode</span><span class="o">(</span><span class="s">"imgList"</span><span class="o">)</span>
+                <span class="o">}</span>
+        <span class="o">)</span>
+<span class="o">})</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">XXYYEntity</span> <span class="kd">implements</span> <span class="n">Serializable</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3476018376851461504L</span><span class="o">;</span>
+
+    <span class="nd">@Id</span>
+    <span class="nd">@GeneratedValue</span><span class="o">(</span><span class="n">strategy</span> <span class="o">=</span> <span class="n">GenerationType</span><span class="o">.</span><span class="na">IDENTITY</span><span class="o">)</span>
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"id"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="kt">long</span> <span class="n">id</span><span class="o">;</span>
+
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"name"</span><span class="o">,</span> <span class="n">length</span> <span class="o">=</span> <span class="mi">45</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"desc"</span><span class="o">,</span> <span class="n">length</span> <span class="o">=</span> <span class="mi">45</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">desc</span><span class="o">;</span>
+
+    <span class="nd">@OneToMany</span><span class="o">(</span><span class="n">fetch</span> <span class="o">=</span> <span class="n">FetchType</span><span class="o">.</span><span class="na">EAGER</span><span class="o">,</span> <span class="n">cascade</span> <span class="o">=</span> <span class="n">CascadeType</span><span class="o">.</span><span class="na">ALL</span><span class="o">)</span>
+    <span class="nd">@JoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"zz_id"</span><span class="o">)</span>
+    <span class="nd">@Where</span><span class="o">(</span><span class="n">clause</span> <span class="o">=</span> <span class="s">"is_valid=1"</span><span class="o">)</span> <span class="c1">//这个条件是加在XXYYZZ表的where条件里面的</span>
+    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">XXYYZZ</span><span class="o">&gt;</span> <span class="n">imgList</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>XXYY表的id和XXYYZZ的zz_id进行join关联</p>
+
+<h3 id="section-1">步骤三, 配置</h3>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;jpa:repositories</span> <span class="na">base-package=</span><span class="s">"xxx.yyy.repository"</span>  
+					  <span class="na">base-class=</span><span class="s">"xxx.zzz.CustomRepositoryImpl"</span>  
+					  <span class="na">transaction-manager-ref=</span><span class="s">"transactionManager"</span>  
+					  <span class="na">entity-manager-factory-ref=</span><span class="s">"entityManagerFactory"</span> <span class="nt">/&gt;</span>
+</code></pre>
+</div>
+
+<h3 id="section-2">如何使用</h3>
+<p>定义一个repository，继续最开始的自定义repository接口，然后在service里面组装好Specification，Pageable，并指定entigyGraph名称
+进行调用</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Page</span><span class="o">&lt;</span><span class="n">XXYYEntity</span><span class="o">&gt;</span> <span class="n">content</span> <span class="o">=</span> <span class="n">xxyyRepository</span><span class="o">.</span><span class="na">findAll</span><span class="o">(</span><span class="n">spec</span><span class="o">,</span> <span class="n">pageable</span><span class="o">,</span> <span class="s">"xxyyWithZZ"</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<h3 id="section-3">问题</h3>
+<p>1.若一个entity包括多个一对多关系，则需要把list换成set，否则报错，或者显示指定@IndexColumn
+2.不使用上面的方式，直接定义一个repository,然后使用@EntityGraph注解</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">XXYYRepository</span> <span class="kd">extends</span> <span class="n">JpaRepository</span><span class="o">&lt;</span><span class="n">XXYYEntity</span><span class="o">,</span> <span class="n">Long</span><span class="o">&gt;,</span>
+        <span class="n">JpaSpecificationExecutor</span><span class="o">&lt;</span><span class="n">XXYYEntity</span><span class="o">&gt;</span> <span class="o">{</span>
+	
+	<span class="nd">@EntityGraph</span><span class="o">(</span><span class="s">"xxyyWithZZ"</span><span class="o">)</span>
+	<span class="n">List</span><span class="o">&lt;</span><span class="n">XXYYEntity</span><span class="o">&gt;</span> <span class="nf">getByIsValid</span><span class="o">(</span><span class="kt">int</span> <span class="n">valid</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>假设xxyy有4条记录，前两条记录分别有2条XXYYZZ，则上述查询会返回6条记录,如下<br />
+1-{2条xxyyzz}<br />
+1-{2条xxyyzz}<br />
+2-{2条xxyyzz}<br />
+2-{2条xxyyzz}<br />
+3-<br />
+4-<br />
+后期可以看看为什么这么返回以及如何处理</p>
+
+<p>参考<br />
+http://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.at-query<br />
+http://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.single-repository-behaviour</p>
+
+
+                </div>
+                <div class="read-all">
+                    <a  href="/2016/11/18/jpa-join/"><i class="fa fa-newspaper-o"></i>Read All</a>
+                </div>
+                <hr>
+              </li>
+            
+              <li>
+                <h2>
+                  <a class="post-link" href="/2016/11/01/resteasy-flow/">resteasy调用流程</a>
+                </h2>
+                <div class="label">
+                    <div class="label-card">
+                        <i class="fa fa-calendar"></i>2016-11-01
+                    </div>
+                    <div class="label-card">
+                        <i class="fa fa-user"></i>Jimmy Lee
+                        
+                    </div>
+                    <div class="label-card">
+                        
+                    </div>
+
+                    <div class="label-card">
+                    
+
+
+<!-- <span class="point">•</span> -->
+<span class="categories">
+  <i class="fa fa-th-list"></i>
+  
+    
+        <a href="/category/#RPC" title="Category: RPC" rel="category">RPC</a>
+    
+  
+
+  <!-- <span class="point">•</span> -->
+</span>
+
+
+                    </div>
+
+                    <div class="label-card">
+                    
+<!-- <span class="point">•</span> -->
+<span class="pageTag">
+  <i class="fa fa-tags"></i>
+  
+    
+        <a href="/tag/#rpc" title="Tag: rpc" rel="tag">rpc</a>
+    
+  
+
+</span>
+
+                    </div>
+                </div>
+                <div class="excerpt">
+                    <ul id="markdown-toc">
+  <li><a href="#section" id="markdown-toc-section">前言</a></li>
+  <li><a href="#section-1" id="markdown-toc-section-1">调用链路</a></li>
+  <li><a href="#section-2" id="markdown-toc-section-2">解释说明</a></li>
+</ul>
+
+<h3 id="section">前言</h3>
+<p>用resteasy调用其他系统的服务,配置的http pool,为了检验一下何时释放的链接,debug了一下,对调用链路做个笔记<br />
+resteasy version:3.0.19.Final</p>
+
+<h3 id="section-1">调用链路</h3>
+<ul>
+  <li>
+    <p>执行前<br />
+ClientProxy<br />
+-&gt; ClientInvoker<br />
+-&gt; ClientRequest<br />
+-&gt; ClientExecutionContextImpl<br />
+-&gt; ApacheHttpClient4Executor<br />
+-&gt; CloseableHttpClient<br />
+-&gt; InternalHttpClient.doExecute</p>
+  </li>
+  <li>然后return</li>
+  <li>直到返回到ClientInvoker -&gt; BodyEntityExtractor</li>
+</ul>
+
+<h3 id="section-2">解释说明</h3>
+<p>1.在ApacheHttpClient4Executor, 创建了释放链接和从stream中获取对象的类<br />
+2.BodyEntityExtractor, 这里检测http status是否异常，异常则抛异常,且返回异常的对象的时候，做了一个copy stream的动作,
+这样保证释放了当前的链接, 又保留了原始的数据流, 这样如果客户端想要进行自定义的一些操作，依然可以读到数据</p>
+
+                </div>
+                <div class="read-all">
+                    <a  href="/2016/11/01/resteasy-flow/"><i class="fa fa-newspaper-o"></i>Read All</a>
+                </div>
+                <hr>
+              </li>
+            
+              <li>
+                <h2>
+                  <a class="post-link" href="/2016/10/26/illegal-access/">Hello world！</a>
+                </h2>
+                <div class="label">
+                    <div class="label-card">
+                        <i class="fa fa-calendar"></i>2016-10-26
+                    </div>
+                    <div class="label-card">
+                        <i class="fa fa-user"></i>Jimmy Lee
+                        
+                    </div>
+                    <div class="label-card">
+                        
+                    </div>
+
+                    <div class="label-card">
+                    
+
+
+<!-- <span class="point">•</span> -->
+<span class="categories">
+  <i class="fa fa-th-list"></i>
+  
+    
+        <a href="/category/#默认分类" title="Category: 默认分类" rel="category">默认分类</a>
+    
+  
+
+  <!-- <span class="point">•</span> -->
+</span>
+
+
+                    </div>
+
+                    <div class="label-card">
+                    
+<!-- <span class="point">•</span> -->
+<span class="pageTag">
+  <i class="fa fa-tags"></i>
+  
+    
+        <a href="/tag/#默认分类" title="Tag: 默认分类" rel="tag">默认分类</a>
+    
+  
+
+</span>
+
+                    </div>
+                </div>
+                <div class="excerpt">
+                    
+<p>First private blog, take a note.</p>
+
+                </div>
+                <div class="read-all">
+                    <a  href="/2016/10/26/illegal-access/"><i class="fa fa-newspaper-o"></i>Read All</a>
+                </div>
+                <hr>
+              </li>
+            
+        </ul>
+
+
+
+        <!-- Pagination links -->
+        <div class="pagination">
+          
+            <span class="previous disable"><i class="fa fa-angle-double-left"></i></span>
+            <span class="previous disable"><i class="fa fa-angle-left"></i></span>
+          
+          <span class="page_number ">1/1</span>
+          
+            <span class="next disable"><i class="fa fa-angle-right"></i></span>
+            <span class="next disable"><i class="fa fa-angle-double-right"></i></span>
+          
+        </div>
+    </div>
+    <!-- <button class="anchor"><i class="fa fa-anchor"></i></button> -->
+    <div class="right">
+        <div class="wrap">
+            <div class="side">
+                <div>
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    Recent Posts
+                </div>
+                <ul class="content-ul" recent>
+                    
+                        <li><a href="/2016/12/07/general-command/">经常用到的各种命令</a></li>
+                    
+                        <li><a href="/2016/12/05/jpa%E6%9B%B4%E6%96%B0/">JPA 更新entity</a></li>
+                    
+                        <li><a href="/2016/11/18/jpa-join/">JPA join查询使用</a></li>
+                    
+                        <li><a href="/2016/11/01/resteasy-flow/">resteasy调用流程</a></li>
+                    
+                        <li><a href="/2016/10/26/illegal-access/">Hello world！</a></li>
+                    
+                </ul>
+            </div>
+
+            <!-- Content -->
+            <div class="side ">
+                <div>
+                    <i class="fa fa-th-list"></i>
+                    Categories
+                </div>
+                <ul class="content-ul" cate>
+                    
+                    <li>
+                        <a href="/category/#默认分类" class="categories-list-item" cate="默认分类">
+                            <span class="name">
+                                默认分类
+                            </span>
+                            <span class="badge">2</span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/category/#RPC" class="categories-list-item" cate="RPC">
+                            <span class="name">
+                                RPC
+                            </span>
+                            <span class="badge">1</span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/category/#ORM" class="categories-list-item" cate="ORM">
+                            <span class="name">
+                                ORM
+                            </span>
+                            <span class="badge">2</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- 其他div框放到这里 -->
+            <div class="side">
+                <div>
+                    <i class="fa fa-tags"></i>
+                    Tags
+                </div>
+                <div class="tags-cloud">
+                    
+                    
+                    
+                    
+
+                    
+
+                    
+                      
+                      
+                      
+                      
+                      
+                      <a href="/tag/#默认分类" style="font-size: 18pt; color: #000;">默认分类</a>
+                    
+                      
+                      
+                      
+                      
+                      
+                      <a href="/tag/#rpc" style="font-size: 9pt; color: #999;">rpc</a>
+                    
+                      
+                      
+                      
+                      
+                      
+                      <a href="/tag/#jpa" style="font-size: 18pt; color: #000;">jpa</a>
+                    
+                </div>
+            </div>
+
+            <!-- <div class="side">
+                <div>
+                    <i class="fa fa-external-link"></i>
+                    Links
+                </div>
+                <ul  class="content-ul">
+
+                </ul>
+            </div> -->
+        </div>
+    </div>
+</div>
+<!-- <script src="/js/scroll.min.js " charset="utf-8"></script> -->
+<!-- <script src="/js/pageContent.js " charset="utf-8"></script> -->
+
+
+    <footer class="site-footer">
+
+
+    <div class="wrapper">
+
+        <p class="description">
+             你来了，你又走了。 
+        </p>
+        <p class="contact">
+            Contact me at: 
+            <a href="https://github.com/roronoa-jimmy"><i class="fa fa-github" aria-hidden="true"></i></a>  
+            <a href="mailto:lee.d.zoro@gmail.com"><i class="fa fa-envelope-o" aria-hidden="true"></i></a>     
+        </p>
+
+        <p>
+            本站总访问量<span id="busuanzi_value_site_pv"></span>次，本站访客数<span id="busuanzi_value_site_uv"></span>人次，本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        </p>
+
+        <p class="power">
+            <span>
+                Site powered by <a href="https://jekyllrb.com/">Jekyll</a>.
+            </span>
+            <span>
+                Theme designed by <a href="https://github.com/Gaohaoyang">HyG</a>&<a href="http://tanquan.me">TQ's Notes!</a>.
+            </span>
+        </p>
+    </div>
+</footer>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <div class="back-to-top">
+    <a href="#top" class="scroll">
+        <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    </a>
+</div>
+
+    <script src=" /js/main.js " charset="utf-8"></script>
+    <script src=" /js/scroll.min.js " charset="utf-8"></script>
+  </body>
+
+</html>
