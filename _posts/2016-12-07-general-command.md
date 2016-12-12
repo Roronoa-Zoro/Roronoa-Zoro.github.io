@@ -28,7 +28,7 @@ query_cache_size				|0
 query_cache_type				|OFF  
 query_cache_wlock_invalidate	|OFF  
 
-### IDEA 相关命令 ###
+### IDEA 相关命令
 1.跳转到某一行  
 Ctrl + G  
 2.当前类的方法和变量  
@@ -36,7 +36,21 @@ Ctrl + F12
 3.替换文本  
 Ctrl + R  
 
-### markdown 相关语法 ###
+### hibernate 相关 
+1.打印sql参数,添加如下配置
+
+```xml
+<prop key="hibernate.show_sql">true</prop>  
+```
+
+log的配置
+
+```xml
+<logger name="org.hibernate.SQL" level="trace"/>
+<logger name="org.hibernate.type" level="trace"/>
+```
+
+### markdown 相关语法
 1.换行  
 连续2个空格  
 2.语法高亮     
@@ -45,4 +59,4 @@ Ctrl + R
 erlang, go, haskell, html, http, ini, java, javascript, json, lisp, lua, markdown, matlab, nginx, 
 objectivec, perl, php, python, r, ruby, scala, smalltalk, sql, tex, vbscript, xml  
 参考  
-https://segmentfault.com/markdown
+[https://segmentfault.com/markdown](https://segmentfault.com/markdown)
