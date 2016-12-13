@@ -28,6 +28,10 @@ q.orderBy(countOrder, userIdOrder);
 System.out.println("con:" + em.createQuery(q).getResultList());
 ```
 
+CriteriaQuery<StatEntity> q = cb.createQuery(StatEntity.class);  
+
+这部分创建query的时候,可以不使用entity,普通的java bean对象也可以,要有相对应的构造函数
+
 ### 查询个别的字段
 只查询StatEntity里面的id列
 
@@ -60,6 +64,6 @@ Page<StatEntity> findAllByTaskStatus(@Param("status") Integer status,
 									 Pageable pageable);
 ``` 
 
-
+select new com.illegalaccess.po.StatEntity(id,status),这里的StatEntity也可以换成普通的java bean
 
 
