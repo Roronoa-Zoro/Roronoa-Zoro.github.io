@@ -41,6 +41,7 @@ Page<StatEntity> findAllByTaskStatus(@Param("status") Integer status,
 ``` 
 在StatEntity里面添加只包含id的构造函数,则查询只查询id列  
 若想查询id,status,则在StatEntity里面添加如下构造函数  
+
 ```java
 public StatEntity(Long id, Integer status) {
 	this.id = id;
