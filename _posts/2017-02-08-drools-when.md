@@ -15,6 +15,7 @@ drools when的高级语法之forall,from,collect笔记
 
 ### from示例
 规则如下
+
 ```
 rule fromSyntaxRule
     when
@@ -65,6 +66,7 @@ end
 ```
 
 java代码如上
+
 解释:查找order下面的参与者列表中性别为1，且聚合后元素数量>=3时才触发规则(即执行then部分的代码)
 
 * 示例2,规则文件如下
