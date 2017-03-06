@@ -13,6 +13,8 @@ author: Jimmy Lee
 ### 前言
 redis配置参数笔记
 
+测试的redis版本是2.8.12
+
 ### hashes
 当hash里面的元素数量很少的时候，在redis里面会特殊处理，数据结构是长度预定义的，key-value对形式的线性数组
 
