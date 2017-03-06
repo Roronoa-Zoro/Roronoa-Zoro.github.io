@@ -24,10 +24,10 @@ redis配置参数笔记
 当entry数量很多时，才会转成使用hash-table这种数据结构存储
 
 
-想开启这个特性，需要设置下面的2个参数
+想开启这个特性，需要设置下面的2个参数(官方文档里面还是写的zipmap)
 ```
-hash-max-zipmap-entries 256  
-hash-max-zipmap-value 64
+hash-max-ziplist-entries 256  
+hash-max-ziplist-value 64
 ```
 
 entries这个参数说明是这个hash里面元素的个数，*-value是说这个hash里面的单一的value大小超过1024字节时，变成hashtable存储
