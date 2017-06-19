@@ -19,6 +19,23 @@
 <!-- 多说公共JS代码 end -->
 {% endif %}
 
+
+{% if site.youyan_shortname %}
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = 'http://v2.uyan.cc/code/uyan.js?uid=2136899';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+{% endif %}
+
 {% if site.disqus_shortname %}
 <div id="disqus_thread"></div>
 <script>
