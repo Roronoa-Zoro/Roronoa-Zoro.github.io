@@ -19,12 +19,12 @@ spring cloud: Dalston.SR2
 ### 打包成war  
 基于spring cloud的开发，默认是打包成jar的，有些情况我们需要打成war然后部署到tomcat下，下面的方式可以打成war并且使用maven切换profile
 
-1. 修改pom
+#### 修改pom
 ```xml
 <packaging>war</packaging>
 ```  
 
-2. 排除内嵌的tomcat
+#### 排除内嵌的tomcat
 ```xml
 <dependency>
 	<groupId>org.springframework.boot</groupId>
@@ -38,7 +38,7 @@ spring cloud: Dalston.SR2
 </dependency>
 ```
 
-3. 根据环境确定内嵌tomcat的scope
+#### 根据环境确定内嵌tomcat的scope
 ```xml
 <dependency>
 	<groupId>org.springframework.boot</groupId>
@@ -47,7 +47,7 @@ spring cloud: Dalston.SR2
 </dependency>
 ```
 
-4. 添加maven里面的profile
+#### 添加maven里面的profile
 ```xml
 <profiles>
 	<profile>
@@ -84,7 +84,7 @@ spring cloud: Dalston.SR2
 </profiles>
 ```
 
-5. 添加maven打包插件
+#### 添加maven打包插件
 ```xml
 <build>
 	<finalName>ur-name</finalName>
@@ -112,7 +112,7 @@ spring cloud: Dalston.SR2
 ```
 如果不添加第二个插件，项目会因为没有web.xml为打包报错
 
-6. 修改启动类
+#### 修改启动类
 ```java
 @EnableDiscoveryClient
 @SpringBootApplication
@@ -131,7 +131,7 @@ public class Application extends SpringBootServletInitializer {
 }
 ```
 
-7. 修改spring cloud config配置
+#### 修改spring cloud config配置
 ```yml
 spring:
   application:
