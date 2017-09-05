@@ -13,14 +13,14 @@ author: Jimmy Lee
 ### 前言
 spring boot打包成war,切切换profile
   
-spring boot: 1.5.6
+spring boot: 1.5.6  
 spring cloud: Dalston.SR2 
 
 ### 打包成war  
 基于spring cloud的开发，默认是打包成jar的，有些情况我们需要打成war然后部署到tomcat下，下面的方式可以打成war并且使用maven切换profile
 
 1. 修改pom
-```
+```xml
 <packaging>war</packaging>
 ```  
 
@@ -85,7 +85,7 @@ spring cloud: Dalston.SR2
 ```
 
 5. 添加maven打包插件
-```
+```xml
 <build>
 	<finalName>ur-name</finalName>
 	<resources>
@@ -132,7 +132,7 @@ public class Application extends SpringBootServletInitializer {
 ```
 
 7. 修改spring cloud config配置
-```
+```yml
 spring:
   application:
     name: gateway-app
