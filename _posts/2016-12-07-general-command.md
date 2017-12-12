@@ -50,6 +50,19 @@ log的配置
 <logger name="org.hibernate.type" level="trace"/>
 ```
 
+### git 命令
+1. 想要提交某个空目录  
+可以创建一个.gitkeep文件,添加一些说明  
+```
+# ignore everything in this directory  
+*  
+# except this file! .gitkeep
+``` 
+
+这样在eclipse打开后,这个目录还是显示是空的
+
+
+
 ### markdown 相关语法
 1.换行  
 连续2个空格  
