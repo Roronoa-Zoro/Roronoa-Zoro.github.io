@@ -25,7 +25,7 @@ mysql 5.6
 总是读取事务开始时的行数据版本  
 
 ### 举个例子
-![](images/mysql-read-example.jpg) 	  
+![](/images/mysql-read-example.jpg) 	  
 val的初始值是1  
 
 
