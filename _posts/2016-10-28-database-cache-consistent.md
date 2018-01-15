@@ -20,14 +20,14 @@ author: Jimmy Lee
 
 
 ##### 存在的问题一,并发读写的问题  
-![](images/cache-solution-1.png)
+![](/images/cache-solution-1.png)
 
 
 会造成旧值存在缓存中,这种操作的概率应该很低，毕竟读比写快很多，t4应该很难发生在t3之前
 
 
 ##### 存在的问题二, 更新不同时成功  
-![](images/cache-solution-1.1.png)  
+![](/images/cache-solution-1.1.png)  
 
 由于操作数据库和缓存不是原子操作，那么可能会造成缓存中的值还存在，就是以后读到旧值
 
@@ -38,7 +38,7 @@ author: Jimmy Lee
 
 
 ##### 存在的问题, 并发读写时发生,依然是把旧值放入了缓存
-![](images/cache-solution-2.png) 
+![](/images/cache-solution-2.png) 
 
 
 ### 方案三:这种方式应该没人用
@@ -48,7 +48,7 @@ author: Jimmy Lee
 
 ### 我们的方式:
 1. 首先缓存得加过期时间。时间越短，命中数据库的次数会越多，时间长，那么出现不一致时的影响时间也会更久。
-![](images/cache-solution-3.png) 
+![](/images/cache-solution-3.png) 
 
 
 ##### 存在的问题：
