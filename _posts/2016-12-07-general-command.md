@@ -28,6 +28,11 @@ query_cache_size				|0
 query_cache_type				|OFF  
 query_cache_wlock_invalidate	|OFF  
 
+
+2. 查看表有哪些索引  
+SHOW INDEX FROM tbl_name
+
+
 ### IDEA 相关命令
 1.跳转到某一行  
 Ctrl + G  
