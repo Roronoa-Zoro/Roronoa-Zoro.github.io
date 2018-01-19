@@ -14,7 +14,10 @@ author: Jimmy Lee
 日常使用的各种命令
 
 ### mysql 相关命令 ###
-1.检查mysql缓存是否打开  
+1. 查看表有哪些索引  
+SHOW INDEX FROM tbl_name
+
+2. 检查mysql缓存是否打开  
 
 ```sql
 show variables like '%query_cache%';
@@ -27,10 +30,6 @@ query_cache_min_res_unit		|4096
 query_cache_size				|0  
 query_cache_type				|OFF  
 query_cache_wlock_invalidate	|OFF  
-
-
-2. 查看表有哪些索引  
-SHOW INDEX FROM tbl_name
 
 
 ### IDEA 相关命令
