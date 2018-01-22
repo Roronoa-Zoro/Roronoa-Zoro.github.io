@@ -61,14 +61,20 @@ trx_autocommit_non_locking: 0
 ### innodb_locks  
 记录了一个事物正在等待另一个事物的记录
 1. 在sessionA执行上面的update语句
-2. 在sessionB执行另一条update语句
+2. 在sessionB执行另一条update语句  
+
+
 ```sql
 mysql> begin;
 Query OK, 0 rows affected (0.00 sec)
 
 mysql> update blog set amt=333 where id=1;
 ```
-看innodb_trx的结果.
+
+
+看innodb_trx的结果.  
+
+
 ```sql
 mysql> select * from innodb_trx \G;
 *************************** 1. row ***************************
@@ -127,6 +133,8 @@ trx_autocommit_non_locking: 0
 
 
 然后看innodb_locks的结果. 可以看到锁模式(X),锁类型(record). lock_trx_id就是上面表的记录id.  
+
+
 ```sql
 mysql> select * from innodb_locks \G;
 *************************** 1. row ***************************
