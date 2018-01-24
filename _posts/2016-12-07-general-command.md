@@ -39,10 +39,11 @@ Ctrl + G
 Ctrl + F12  
 3.替换文本  
 Ctrl + R  
-4. 定位class
-在左侧project view的scroll from source按钮  
-5. exception breakpoint  
+4. 定位class   
+在左侧project view的scroll from source按钮   
+5. exception breakpoint    
 5.1 在debugger里面,打开view breakpoints, 点击左上角绿色+, 选择java exception breakpoints, 输入一个异常类, 然后打钩, 点Done, 这样当发生这个异常的地方就能断点了
+
 
 ### hibernate 相关 
 1.打印sql参数,添加如下配置
