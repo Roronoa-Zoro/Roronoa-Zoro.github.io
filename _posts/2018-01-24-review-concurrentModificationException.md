@@ -42,7 +42,9 @@ private class Itr implements Iterator<E> {
 }
 ```
 
-2. 这里面有个变量和检查结构性修改次数的方法
+2. 这里面有个变量和检查结构性修改次数的方法  
+
+
 ```java
 int expectedModCount = modCount;
 
@@ -51,6 +53,7 @@ final void checkForComodification() {
         throw new ConcurrentModificationException();
 }
 ```
+
 
 3. expectedModCount初始值是list里面的值, 然后Itr的next和remove对调用checkForComodification进行检查.   
 4. 如果通过调用Itr的remove方法, list的modCount和Itr的expectedModCount会同时修改.   
