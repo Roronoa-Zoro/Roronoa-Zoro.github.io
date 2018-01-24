@@ -2,7 +2,7 @@
 layout: post
 title:  "review concurrentModificationException"
 date:   2018-01-24 +0800
-categories: java
+categories: JAVA
 tags: java
 author: Jimmy Lee
 ---
