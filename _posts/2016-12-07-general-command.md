@@ -80,6 +80,15 @@ git branch -a
 git checkout -b dev origin/dev    
 则在本地创建了名称为dev的分支, 和远程的dev一致    
 
+3. 把代码从一个gitlab迁移到另一个gitlab   
+从gitlab A clone代码   
+切换到想要推送的分支(假设叫dev)   
+在新的gitlab B新建同名的项目   
+设置新的gitlab地址， git remote add origin ${gitlab B的地址}   
+推送到新的gitlab，git push ${gitlab B的地址} -all (--all 会推送全部分支，不加 则只推送当前分支)    
+
+
+
 
 ### markdown 相关语法
 1.换行  
