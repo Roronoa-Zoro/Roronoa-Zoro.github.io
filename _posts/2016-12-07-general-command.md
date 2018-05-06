@@ -70,6 +70,15 @@ log的配置
 
 这样在eclipse打开后,这个目录还是显示是空的
 
+2. 切换到远程分支
+git branch -a  
+* master   
+  remotes/origin/HEAD -> origin/master   
+  remotes/origin/dev    
+  remotes/origin/master    
+想要切换到dev分支    
+git checkout -b dev origin/dev    
+则在本地创建了名称为dev的分支, 和远程的dev一致    
 
 
 ### markdown 相关语法
