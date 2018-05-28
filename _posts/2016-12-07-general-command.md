@@ -45,6 +45,14 @@ Ctrl + R
 5.1 在debugger里面,打开view breakpoints(Ctrl + Shift + F8), 点击左上角绿色+, 选择java exception breakpoints, 输入一个异常类, 然后打钩, 点Done, 这样当发生这个异常的地方就能断点了
 
 
+
+### db连接池配置
+1.timeBetweenEvictionRunsMillis, 有一个检测空闲连接的线程, 它每隔这个时间执行一次, 单位毫秒  
+2.minEvictableIdleTimeMillis, 一个链接在池中最小的空闲时间, 超过这个时间, 上面配置中的检测线程检测到这个链接后就干掉它
+3.removeAbandoned,这和下面的参数配合使用,用来检测链接泄露. bool类型
+4.removeAbandonedTimeout, 一个使用中的链接被删掉前的超时时间. 单位秒. 这个值要设的比应用中执行时间最长的sql的执行时间还长.
+
+
 ### hibernate 相关 
 1.打印sql参数,添加如下配置
 
