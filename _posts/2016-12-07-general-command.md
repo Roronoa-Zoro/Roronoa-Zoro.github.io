@@ -108,3 +108,7 @@ erlang, go, haskell, html, http, ini, java, javascript, json, lisp, lua, markdow
 objectivec, perl, php, python, r, ruby, scala, smalltalk, sql, tex, vbscript, xml  
 参考  
 [https://segmentfault.com/markdown](https://segmentfault.com/markdown)
+
+
+### jvm 参数
+1. -verbose:class, 当类冲突的时候使用, 可以打印出class是从哪个jar加载出来的
