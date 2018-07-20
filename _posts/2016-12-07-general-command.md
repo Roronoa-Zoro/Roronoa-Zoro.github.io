@@ -96,6 +96,8 @@ git checkout -b dev origin/dev    
 推送到新的gitlab，git push ${gitlab B的地址} -all (--all 会推送全部分支，不加 则只推送当前分支)    
 
 
+### jvm 参数
+1. -verbose:class, 当类冲突的时候使用, 可以打印出class是从哪个jar加载出来的
 
 
 ### markdown 相关语法
@@ -110,5 +112,3 @@ objectivec, perl, php, python, r, ruby, scala, smalltalk, sql, tex, vbscript, xm
 [https://segmentfault.com/markdown](https://segmentfault.com/markdown)
 
 
-### jvm 参数
-1. -verbose:class, 当类冲突的时候使用, 可以打印出class是从哪个jar加载出来的
