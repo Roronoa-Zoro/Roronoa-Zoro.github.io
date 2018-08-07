@@ -101,8 +101,10 @@ git checkout -b dev origin/dev    
 
 
 ### mvn 相关
-1. 手动推送jar  
-mvn deploy:deploy-file -DgroupId=com.antgroup.zmxy -DartifactId=zmxy-sdk-java -Dversion=20170531120635 -Dclassifier=shaded -Dfile=本地jar包路径 -DrepositoryId=maven-releases -Durl=http://ip:port/repository/maven-releases/
+1. 手动推送jar到私服  
+mvn deploy:deploy-file -DgroupId=com.antgroup.zmxy -DartifactId=zmxy-sdk-java -Dversion=20170531120635 -Dclassifier=shaded -Dfile=本地jar包路径 -DrepositoryId=maven-releases -Durl=http://ip:port/repository/maven-releases/   
+2. 手动安装jar到本地仓库  
+mvn install:install-file -Dfile=alipay-sdk-java20171201160035.jar -DgroupId=com.alipay -DartifactId=java-sdk -Dversion=20171201 -Dpackaging=jar  
 
 
 ### markdown 相关语法
