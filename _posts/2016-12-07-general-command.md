@@ -100,6 +100,11 @@ git checkout -b dev origin/dev    
 1. -verbose:class, 当类冲突的时候使用, 可以打印出class是从哪个jar加载出来的
 
 
+### mvn 相关
+1. 手动推送jar  
+mvn deploy:deploy-file -DgroupId=com.antgroup.zmxy -DartifactId=zmxy-sdk-java -Dversion=20170531120635 -Dclassifier=shaded -Dfile=本地jar包路径 -DrepositoryId=maven-releases -Durl=http://ip:port/repository/maven-releases/
+
+
 ### markdown 相关语法
 1.换行  
 连续2个空格  
