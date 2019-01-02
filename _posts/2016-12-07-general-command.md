@@ -99,8 +99,8 @@ git checkout -b dev origin/dev    
 ### jvm 参数
 1. -verbose:class, 当类冲突的时候使用, 可以打印出class是从哪个jar加载出来的
 
-### rocketmq client
-1.打印日志加 -Drocketmq.client.logUseSlf4j=true
+### rocketmq
+1.client(version:4.3.1+)打印日志加 -Drocketmq.client.logUseSlf4j=true, 
 
 ### mvn 相关
 1. 手动推送jar到私服  
