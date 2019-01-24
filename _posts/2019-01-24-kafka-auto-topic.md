@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "review concurrentModificationException"
+title:  "kafka-auto-topic"
 date:   2019-01-24 +0800
 categories: JAVA
 tags: java
