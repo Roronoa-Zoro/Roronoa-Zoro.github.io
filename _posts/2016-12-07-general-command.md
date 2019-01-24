@@ -102,7 +102,7 @@ git checkout -b dev origin/dev    
 step1:先top命令查看    
 step2:然后top -Hp {step1中找到的pid}   
 step3:shift + p 找到最耗cpu的线程    
-step4:printf "%x\n" tid{step3中的pid,将需要的线程ID转换为16进制格式} (或者 pstack tid -f -p tid 直接打印堆栈)    
+step4:printf "%x\n" tid{step3中的pid,将需要的线程ID转换为16进制格式} (或者 pstack tid, strace -f -p tid 直接打印堆栈)    
 step5:jstack -l pid{step1中的pid} > /tmp/pid.txt 
 step6:根据step4中打印的名称去pid.txt查找对应的线程堆栈信息   
 
