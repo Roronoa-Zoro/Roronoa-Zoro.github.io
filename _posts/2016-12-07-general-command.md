@@ -130,8 +130,9 @@ Time per request:       0.688 [ms] (mean, across all concurrent requests)     3)
 Transfer rate:          213.04 [Kbytes/sec] received    
                         426.07 kb/s sent    
                         639.11 kb/s total    
-1)=Time taken for tests/(Complete requests/Concurrency Level), 用户请求平均等待时间     
-2)=Time taken for tests/Complete requests, 服务器平均请求时间    
+1)吞吐量    
+2)=Time taken for tests/(Complete requests/Concurrency Level), 用户请求平均等待时间     
+3)=Time taken for tests/Complete requests, 服务器平均请求时间    
 
 ### markdown 相关语法
 1.换行  
