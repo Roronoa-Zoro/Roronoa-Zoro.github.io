@@ -115,6 +115,23 @@ mvn deploy:deploy-file -DgroupId=com.antgroup.zmxy -DartifactId=zmxy-sdk-java -D
 2. 手动安装jar到本地仓库  
 mvn install:install-file -Dfile=alipay-sdk-java20171201160035.jar -DgroupId=com.alipay -DartifactId=java-sdk -Dversion=20171201 -Dpackaging=jar  
 
+### ab结果说明
+Concurrency Level:      30    
+Time taken for tests:   3.438 seconds    
+Complete requests:      5000   
+Failed requests:        0    
+Keep-Alive requests:    0    
+Total transferred:      750000 bytes    
+Total body sent:        1500000    
+HTML transferred:       155000 bytes    
+Requests per second:    1454.33 [#/sec] (mean)     1)    
+Time per request:       20.628 [ms] (mean)         2)    
+Time per request:       0.688 [ms] (mean, across all concurrent requests)     3)   
+Transfer rate:          213.04 [Kbytes/sec] received    
+                        426.07 kb/s sent    
+                        639.11 kb/s total    
+1)=Time taken for tests/(Complete requests/Concurrency Level), 用户请求平均等待时间     
+2)=Time taken for tests/Complete requests, 服务器平均请求时间    
 
 ### markdown 相关语法
 1.换行  
