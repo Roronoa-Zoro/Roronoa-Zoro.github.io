@@ -51,6 +51,7 @@ Ctrl + R
 2.minEvictableIdleTimeMillis, 一个链接在池中最小的空闲时间, 超过这个时间, 上面配置中的检测线程检测到这个链接后就干掉它   
 3.removeAbandoned,这和下面的参数配合使用,用来检测链接泄露. bool类型    
 4.removeAbandonedTimeout, 一个使用中的链接被删掉前的超时时间. 单位秒. 这个值要设的比应用中执行时间最长的sql的执行时间还长.    
+1和2的时间和要小于mysql的wait_timeout    
 
 
 ### hibernate 相关 
