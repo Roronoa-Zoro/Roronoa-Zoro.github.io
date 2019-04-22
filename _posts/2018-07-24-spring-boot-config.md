@@ -21,4 +21,8 @@ jdk: 1.8
 
 1.分环境配置日志   
 在不同的配置文件定义日志级别,如logging.level.root=debug/info   
-定义logback-spring.xml文件,<springProperty scope="context" name="logLevel" source="logging.level.root"/>,然后可以引用${logLevel}     
+定义logback-spring.xml文件   
+```xml
+<springProperty scope="context" name="logLevel" source="logging.level.root"/>
+```xml   
+然后可以引用${logLevel}     
