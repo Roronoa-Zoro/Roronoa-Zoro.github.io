@@ -24,5 +24,5 @@ jdk: 1.8
 定义logback-spring.xml文件   
 ```xml
 <springProperty scope="context" name="logLevel" source="logging.level.root"/>
-```xml   
+```   
 然后可以引用${logLevel}     
