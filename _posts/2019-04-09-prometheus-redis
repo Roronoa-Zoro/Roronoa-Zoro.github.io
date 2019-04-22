@@ -30,6 +30,6 @@ prometheus: 2.8.1
       - targets: ['redis_exporter_ip:9121']
         labels:
           instance: redis-cluster
-```yml          
+```          
 4.grafna 的prometheus redis json格式模板，https://grafana.com/dashboards/763    
 5.导入改模板，可以直接使用763模板号，或者把json贴到grafna里面  
