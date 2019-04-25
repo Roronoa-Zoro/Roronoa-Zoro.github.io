@@ -99,13 +99,18 @@ git checkout -b dev origin/dev    
 
 ### jvm 参数
 1. -verbose:class, 当类冲突的时候使用, 可以打印出class是从哪个jar加载出来的
-2. 查找消耗cpu或内存的线程    
+
+### linux
+1. 查找消耗cpu或内存的线程    
 step1:先top命令查看    
 step2:然后top -Hp {step1中找到的pid}   
 step3:shift + p 找到最耗cpu的线程    
 step4:printf "%x\n" tid{step3中的pid,将需要的线程ID转换为16进制格式} (或者 pstack tid, strace -f -p tid 直接打印堆栈)    
 step5:jstack -l pid{step1中的pid} > /tmp/pid.txt 
 step6:根据step4中打印的名称去pid.txt查找对应的线程堆栈信息   
+
+2.atop & htop使用    
+3.perf top -g -p pid,可以先到命令级/方法级调用, 上下键可以选择不同命令, enter或者e展开调用链, c键收回调用链展示   
 
 ### rocketmq
 1.client(version:4.3.1+)打印日志加 -Drocketmq.client.logUseSlf4j=true, 
