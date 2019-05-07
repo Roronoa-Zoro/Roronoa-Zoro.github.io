@@ -26,7 +26,7 @@ No route info for this topic,  XXX topic
 1)DefaultMQProducerImpl.sendSelectImpl 这个方法    
 2)一路debug到MQClientInstance.updateTopicRouteInfoFromNameServer   
 3)想要找到使用nameserver的地址的地方，发现地址都是直接取的，没有分隔的地方，应该方向错误了     
-转换思路，可能是由于在启动的时候set nameserver地址的    
+转换思路，可能是由于在启动的时候set nameserver地址的时候出的问题, 下面进行验证      
 1)DefaultMQProducerImpl看它的start方法
 ```java
 this.mQClientFactory = MQClientManager.getInstance().getAndCreateMQClientInstance(this.defaultMQProducer, rpcHook);
