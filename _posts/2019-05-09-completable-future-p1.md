@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "completable-future"
+title:  "completable-future-p1"
 date:   2019-05-09 +0800
 categories: JAVA
 tags: java
@@ -11,7 +11,7 @@ author: Jimmy Lee
 {:toc}
 
 
-#### completable-future  
+#### completable-future part1   
 
 ### 技术版本
 jdk: 1.8    
