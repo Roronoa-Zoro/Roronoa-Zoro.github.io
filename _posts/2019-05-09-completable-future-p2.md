@@ -21,7 +21,7 @@ jdk: 1.8
 
 ### 案例开始   
 #### accept和apply系列方法补充
-1. acceptEither方法, 先执行完的任务被返回, 但是2个任务都执行了   
+1. acceptEither方法, 先执行完的任务被返回, 然后Consumer的入参就是先返回的任务的数据,但是2个任务都执行了   
 ```java
 @Test
 public void thenAcceptEitherTest() {
