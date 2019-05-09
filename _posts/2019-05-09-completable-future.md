@@ -156,3 +156,11 @@ public void thenRunTest() {
     MixAll.simulateComputeCost(8);
 }
 ``` 
+这3个方法都有另外2个后缀是Async的重载方法，以thenApply为例  
+```java
+thenApplyAsync(Function<? super T,? extends U> fn)  //method1
+thenApplyAsync(Function<? super T,? extends U> fn, Executor executor)   //method2  
+```
+method1在方法内部使用了ForkJoinPool.commonPool(),在测试过程中发现执行thenApplyAsync的逻辑和执行supplyAsync的线程依然是同一个,猜测是又在线程池里拿到了同一个,但是好巧啊...   
+method2使用了传递的executor进行执行   
+
