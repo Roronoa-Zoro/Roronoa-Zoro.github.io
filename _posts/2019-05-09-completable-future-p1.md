@@ -135,8 +135,8 @@ supplyAsync执行完成后,自动调用thenApply()方法
 ```java
 @Test
 public void thenAcceptTest() {
-    CompletableFuture.supplyAsync(() -> UserService.Instance.getUser(12))
-            .thenAccept(user -> MixAll.printWithThread(" thenAccept get userName:" + user.getName()));
+    CompletableFuture.supplyAsync(() -> ProductService.Instance.getProduct(12))
+            .thenAccept(product -> MixAll.printWithThread(" thenAccept get productName:" + product.getName()));
 
     //等待执行完成
     MixAll.simulateComputeCost(8);
@@ -150,7 +150,7 @@ public void thenAcceptTest() {
 public void thenRunTest() {
     long start = System.currentTimeMillis();
     CompletableFuture
-            .runAsync(() -> UserService.Instance.getUser(12))
+            .runAsync(() -> ProductService.Instance.getProduct(12))
             .thenRun(() -> MixAll.printWithThread(" thenRun cost:" + (System.currentTimeMillis() - start) + "ms"));
     //等待执行完成
     MixAll.simulateComputeCost(8);
