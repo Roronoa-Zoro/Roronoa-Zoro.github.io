@@ -19,7 +19,7 @@ jdk: 1.8
 
 ### 前言
 **网上帖子千千万，咱也一起炒冷饭.**  
-CompletableFuture是用于构建异步编程的基础，同时它集成自Future和CompletionStage， 这个接口是一个promise，它表示这个计算最终会完成。       
+CompletableFuture是用于构建异步编程的基础，同时它继承自Future和CompletionStage， CompletionStage这个接口是一个promise，它表示这个计算最终会完成。       
 
 ### Future的不足 
 1.不能手动设置操作完成  
@@ -72,9 +72,12 @@ public void runAsyncTest() throws ExecutionException, InterruptedException {
         MixAll.simulateComputeCost();
         System.out.println(Thread.currentThread().getName() + " runAsyncTest...................");
     });
-    cf.get();
+    cf.get(); //step1
+    //MixAll.simulateComputeCost(8); //step2
 }
-```
+``` 
+ 由于这个是在junit里面进行的，所以需要等待它执行完成，等待的方式有2种: step1和step2. 
+ **不要误认为必须调用get()方法**
 该方法有2个重载方法   
 ```java
 public static CompletableFuture<Void> runAsync(Runnable runnable)  
@@ -98,3 +101,58 @@ public void supplyAsyncTest() throws ExecutionException, InterruptedException {
 }
 ```
 依然有2个重载方法,详见api, 线程池说明同上   
+
+#### 构建异步CompletableFuture
+上面的get()是阻塞的, 他会一直阻塞直到执行完成,这就是最开始我们说的Future的不足,这不是我们想要的.  
+我们需要的是可以设置一个回调,等执行完成后自动进行调用, 下面我们看下这几个方法.  
+1.thenApply()方法,**它接受一个Function作为入参,同时返回带参的CompletableFuture** 
+示例代码
+```java
+@Test
+public void thenApplyTest() throws ExecutionException, InterruptedException {
+    CompletableFuture<String> cf = CompletableFuture
+            .supplyAsync(() -> {
+                MixAll.simulateComputeCost();
+                MixAll.printWithThread(" will return something");
+                return "hello supplyAsync";
+            })
+            .thenApply(info -> {
+                MixAll.simulateComputeCost();
+                MixAll.printWithThread(" will return something");
+                return "thenApply|" + info;
+            });
+
+
+    String data = cf.get();
+    MixAll.printWithThread(" get>>" + data);
+}
+```
+supplyAsync执行完成后,自动调用thenApply()方法  
+执行thenApply里面的逻辑的线程和执行supplyAsync逻辑的是同一个.   
+
+2.thenAccept(),返回CompletableFuture<Void>, 参数是Consumer   
+示例代码,先异步获取数据,完成后进行消费      
+```java
+@Test
+public void thenAcceptTest() {
+    CompletableFuture.supplyAsync(() -> UserService.Instance.getUser(12))
+            .thenAccept(user -> MixAll.printWithThread(" thenAccept get userName:" + user.getName()));
+
+    //等待执行完成
+    MixAll.simulateComputeCost(8);
+}
+```
+
+3.thenRun(), 返回CompletableFuture<Void>, 参数是Runnable,无法访问上一步的返回结果(如果有返回结果)   
+示例代码
+```java
+@Test
+public void thenRunTest() {
+    long start = System.currentTimeMillis();
+    CompletableFuture
+            .runAsync(() -> UserService.Instance.getUser(12))
+            .thenRun(() -> MixAll.printWithThread(" thenRun cost:" + (System.currentTimeMillis() - start) + "ms"));
+    //等待执行完成
+    MixAll.simulateComputeCost(8);
+}
+``` 
