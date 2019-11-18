@@ -26,3 +26,23 @@ jdk: 1.8
 <springProperty scope="context" name="logLevel" source="logging.level.root"/>
 ```   
 然后可以引用${logLevel}     
+
+2.yml里面配置list，使用@Value取值
+```yml
+mm: 
+  list: aaa,bbb,ccc
+```
+```java
+@Value("#{'${mm.list}'.split(',')}")
+private List<String> lists;
+```
+
+3.yml里面配置map，使用@Value取值
+```yml
+mm: 
+  map: "{'aaa':1, 'bbb':2, 'ccc': 3}"
+```
+```java
+@Value(#{${"mm.map"}})
+private Map<String, Integer> maps;
+```
