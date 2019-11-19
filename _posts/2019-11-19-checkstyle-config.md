@@ -20,7 +20,32 @@ author: Jimmy Lee
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>3.1.0</version>
         <configuration>
-          <configLocation>config/checkstyle/checkstyle.xml</configLocation>
+          <configLocation>${你项目的路径}/checkstyle.xml</configLocation>
         </configuration>
       </plugin>
+```
+
+#### 指定生成的报告的html使用的style
+```xml
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>xml-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>transform</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <transformationSets>
+            <transformationSet>
+              <dir>${project.basedir}/target</dir>
+              <stylesheet>${你项目的路径}/checkstyle.xsl</stylesheet>
+            </transformationSet>
+          </transformationSets>
+        </configuration>
+      </plugin>
+
+
 ```
