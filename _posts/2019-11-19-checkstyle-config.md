@@ -13,7 +13,7 @@ author: Jimmy Lee
 
 ### checkstyle maven plus 配置
 #### 指定checkstyle配置的位置  
-参考:[https://maven.apache.org/plugins/maven-checkstyle-plugin/examples/custom-checker-config.html](apache maven checkstyle)     
+参考:[apache maven checkstyle](https://maven.apache.org/plugins/maven-checkstyle-plugin/examples/custom-checker-config.html)     
 ```xml
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
