@@ -98,7 +98,13 @@ git checkout -b dev origin/dev    
 
 
 ### jvm 参数
-1. -verbose:class, 当类冲突的时候使用, 可以打印出class是从哪个jar加载出来的
+1. -verbose:class, 当类冲突的时候使用, 可以打印出class是从哪个jar加载出来的。  
+2. -Djava.endorsed.dirs，ava提供了endorsed技术：
+关于 endorsed ：可以的简单理解为 -Djava.endorsed.dirs 指定的目录面放置的jar文件，将有覆盖系统API的功能。但是能够覆盖的类是有限制的，其中不包括java.lang包中的类(出于安全的考虑)。
+
+为什么必须使用 endorsed 进行替换 jdk 中的类呢？
+因为java是采用双亲委派机制进行加载class类的。而jdk提供的类只能由类加载器Bootstrap进行加载。如果你想要在应用程序中替换掉jdk中的某个类是无法做到的，所以java提供了endorsed来达到你想要替换到系统中的类。
+
 
 ### linux
 1. 查找消耗cpu或内存的线程    
