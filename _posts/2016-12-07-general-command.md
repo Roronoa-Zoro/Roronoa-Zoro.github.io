@@ -174,7 +174,46 @@ Transfer rate:          213.04 [Kbytes/sec] received
                         639.11 kb/s total    
 1)吞吐量    
 2)=Time taken for tests/(Complete requests/Concurrency Level), 用户请求平均等待时间     
-3)=Time taken for tests/Complete requests, 服务器平均请求时间    
+3)=Time taken for tests/Complete requests, 服务器平均请求时间     
+
+### nginx常见参数    
+```text
+client_max_body_size
+client_max_body_size 默认 1M，表示 客户端请求服务器最大允许大小，在“Content-Length”请求头中指定。如果请求的正文数据大于client_max_body_size，HTTP协议会报错 413 Request Entity Too Large。就是说如果请求的正文大于client_max_body_size，一定是失败的。如果需要上传大文件，一定要修改该值。
+Nginx默认为这个directive设定的值是1m，可以在http, server 和 location模块中定义，例如：
+server {
+   client_max_body_size 2m;
+}
+
+client_body_buffer_size
+设定了request body的缓冲大小。如果body超过了缓冲的大小，那么整个body或者部分body将被写入一个临时文件。如果Nginx被设置成使用文件缓冲而不使用内存缓冲，那么这个dirctive就无效。client_body_buffer_size在32位系统上默认是8k，在64位系统上默认是16k。
+如果请求的值大于client_body_buffer_size小于client_max_body_size，就会将数据先存储到临时文件中.在哪个临时文件中呢？看下面
+可以在http, server 和 location模块中指定，如下：
+server {
+   client_max_body_size 2m;
+}
+
+client_body_temp_path
+指定存储request body的临时文件路径。另外，它可以指定目录层次。Nginx默认在Nginx的安装目录下面的client_body_temp子目录下面创建临时文件。
+这个directive可以在http, server 和 location 模块中定义。
+server {
+     client_body_temp_pathtemp_files 1 2;
+}
+
+client_header_buffer_size
+类似于client_body_buffer_size。它给request header分配缓冲。默认的值是1k，可以在http 和 server模块中定义。
+http {
+  client_header_buffer_size 1m;
+}
+
+
+proxy_max_temp_file_size size;
+默认值:	proxy_max_temp_file_size 1024m;
+上下文:	http, server, location
+打开响应缓冲以后，如果整个响应不能存放在proxy_buffer_size和proxy_buffers指令设置的缓冲区内，部分响应可以存放在临时文件中。 这条指令可以设置临时文件的最大容量。而每次写入临时文件的数据量则由proxy_temp_file_write_size指令定义。
+
+将此值设置为0将禁止响应写入临时文件。
+```
 
 ### markdown 相关语法
 1.换行  
